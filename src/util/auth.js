@@ -1,15 +1,17 @@
-
-import React, { useState, useEffect, useContext, createContext } from "react";
-import firebase from "./firebase";
-// import { createUser } from "./db";
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import firebase from './firebase';
 
 const authContext = createContext();
 
 // Context Provider component that wraps your app and makes auth object
 // available to any child component that calls the useAuth() hook.
-export function ProvideAuth({ children }) {
+export const ProvideAuth = ({children}) => {
     const auth = useProvideAuth();
-    return <authContext.Provider value={auth}>{children}</authContext.Provider>;
+    return (
+        <authContext.Provider value={auth}>
+            {children}
+        </authContext.Provider>
+    );
 }
 
 // Hook that enables any component to subscribe to auth state
@@ -21,12 +23,10 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
-    // Handle a new user object (updates db and sets user state)
     const handleUser = (rawUser) => {
         if (rawUser) {
             // Get user object in format expected by front-end
             const user = formatUser(rawUser);
-
             setUser(user);
             return user;
         } else {
@@ -36,11 +36,10 @@ function useProvideAuth() {
     };
 
     const signinWithProvider = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-
+        const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
         return firebase
             .auth()
-            .signInWithPopup(provider)
+            .signInWithPopup(googleAuthProvider)
             .then((response) => handleUser(response.user));
     };
 
@@ -57,9 +56,6 @@ function useProvideAuth() {
     };
 }
 
-// Format user object
-// If there are extra fields you want from the original user
-// object then you'd add those here.
-const formatUser = ({ uid, photoURL, displayName }) => {
-    return { uid, photoURL, displayName };
+const formatUser = ({uid, photoURL, displayName}) => {
+    return {uid, photoURL, displayName};
 };
