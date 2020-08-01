@@ -1,10 +1,14 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import { useAuth } from '../util/auth';
 
-const Index = () => (
-    <Button>
-        Hello Next!
-    </Button>
-);
+const Index = () => {
+    const auth = useAuth();
+    return (
+        <Button>
+            Hello Next!
+        </Button>
+    );
+}
 
 export default Index;
