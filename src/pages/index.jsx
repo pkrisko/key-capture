@@ -1,13 +1,28 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
-import { useAuth } from '../util/auth';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        margin: '0 auto',
+        width: 100,
+        padding: 30,
+    },
+}));
 
 const Index = () => {
-    const auth = useAuth();
+    const router = useRouter();
+    const classes = useStyles();
+    useEffect(() => {
+        router.push('/dashboard');
+    }, []);
     return (
-        <Button>
-            Hello Next!
-        </Button>
+        <div className={classes.root}>
+            <CircularProgress />
+        </div>
     );
 }
 
