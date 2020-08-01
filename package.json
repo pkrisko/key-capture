@@ -1,0 +1,32 @@
+{
+  "name": "learn-keyboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkrisko/key-capture.git"
+  },
+  "keywords": [
+    "keyboard",
+    "piano",
+    "nextjs"
+  ],
+  "author": "patrick krisko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pkrisko/key-capture/issues"
+  },
+  "homepage": "https://github.com/pkrisko/key-capture#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "next": "^9.5.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
