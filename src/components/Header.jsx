@@ -34,10 +34,10 @@ const Header = ({ displayName, photoURL }) => {
                     aria-label="account of current user"
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
-                    onClick={() => console.log("clicked")}
+                    onClick={() => {}}
                     color="inherit"
                 >
-                    <img src={photoURL} alt="User photo" className={classes.profileIcon} />
+                    <img src={photoURL} alt="User photo" className={classes.profileIcon} id="user-icon" />
                 </IconButton>
             </AppBar>
         </div>

@@ -17,7 +17,7 @@ const Index = () => {
     const router = useRouter();
     const classes = useStyles();
     useEffect(() => {
-        router.push('/dashboard');
+        router.push('/dashboard').then(() => {});
     }, []);
     return (
         <div className={classes.root}>

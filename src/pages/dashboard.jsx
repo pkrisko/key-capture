@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../util/auth';
 import { useRouter } from 'next/router';
 import Header from '../components/Header';
+import Recording from '../components/Recording';
 
 const Dashboard = () => {
     const auth = useAuth();
@@ -13,10 +14,13 @@ const Dashboard = () => {
         }
     }, [auth, router]);
 
-    return <div>
-        <Header {...auth.user} />
-        Dashboard page
-    </div>
+    return (
+        <>
+            <Header {...auth.user} />
+            <Recording />
+        </>
+    );
+
 
 
 }

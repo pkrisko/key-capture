@@ -7,3 +7,7 @@
 body {
     margin: 0;
 }
+
+.ReactPiano__Keyboard {
+    height: 250px !important;
+}
