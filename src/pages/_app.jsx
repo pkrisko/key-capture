@@ -7,7 +7,7 @@ import 'react-piano/dist/styles.css';
 const App = ({Component, pageProps}) => (
     <ProvideAuth>
         <Head>
-            <link rel="stylesheet" href="/public/favicon.ico"/>
+            <link rel="stylesheet" href="/favicon.ico"/>
         </Head>
         <Component {...pageProps} />
     </ProvideAuth>

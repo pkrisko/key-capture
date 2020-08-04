@@ -1,4 +1,4 @@
-#user-icon {
+.user-icon {
     width: 40px;
     height: 40px;
     border-radius: 20px;
@@ -6,6 +6,33 @@
 
 body {
     margin: 0;
+}
+
+.header-app-bar {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.display-name {
+    flex-grow: 1;
+}
+
+.very-center-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-icon {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    margin-left: 10px;
 }
 
 .ReactPiano__Keyboard {

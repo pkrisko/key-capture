@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
+import Button from '@material-ui/core/Button';
 import { useAuth } from '../util/auth';
 
-function SignIn(props) {
+const SignIn = () => {
     const auth = useAuth();
     const router = useRouter();
 
@@ -11,14 +12,13 @@ function SignIn(props) {
         router.push('/dashboard');
     }
 
-    useEffect(() => {
-        signIn();
-    }, []);
-
     return (
-        <>
-            Logging in...
-        </>
+        <div className="very-center-wrapper">
+            <Button variant="contained" color="primary" onClick={signIn}>
+                log in with
+                <img src="/google-favicon.png" alt="Google logo" className="google-icon"/>
+            </Button>
+        </div>
     );
 }
 
