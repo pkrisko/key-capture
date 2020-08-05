@@ -7,17 +7,50 @@ import { useRouter } from 'next/router';
 import Header from '../components/Header';
 
 
-const Quizzes = ({ quizzes }) => {
-    const links = quizzes.map(({ id, name }) => (
-        <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
-            <MaterialLink >
-                {name}
-            </MaterialLink>
-        </Link>
-    ));
+const Quizzes = () => {
+    const [quizzes, setQuizzes] = useState(null);
+
+    const getQuizzes = async () => {
+        try {
+            const response = await fetch(`${API_DOMAIN}/quizzes`);
+            const json = await response.json();
+            setQuizzes(json);
+        } catch(err) {
+            setQuizzes(undefined);
+        }
+    }
+
+    useEffect(() => {
+        getQuizzes();
+    }, []);
+
+    if (quizzes === null) {
+        return (
+            <CircularProgress/>
+        );
+    }
+
+    if (quizzes === undefined) {
+        return (
+            <span>Error getting cases</span>
+        )
+    }
+
+    if (quizzes.length === 0) {
+        return (
+            <span>No quizzes available</span>
+        )
+    }
+
     return (
         <div className="links-to-quizzes">
-            {links}
+            {quizzes.map(({ id, name }) => (
+                <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
+                    <MaterialLink >
+                        {name}
+                    </MaterialLink>
+                </Link>
+            ))}
         </div>
     )
 }
@@ -25,27 +58,17 @@ const Quizzes = ({ quizzes }) => {
 const Dashboard = () => {
     const auth = useAuth();
     const router = useRouter();
-    const [quizzes, setQuizzes] = useState(null);
-
-    const getQuizzes = async () => {
-        const response = await fetch(`${API_DOMAIN}/quizzes`);
-        const json = await response.json();
-        setQuizzes(json);
-    }
 
     useEffect(() => {
         if (auth.user === false) {
             router.push('/signin');
-        } else {
-            getQuizzes();
         }
     }, [auth, router]);
 
     return (
         <>
             <Header {...auth.user} />
-            {!quizzes && <CircularProgress/>}
-            {quizzes && <Quizzes quizzes={quizzes}/>}
+            <Quizzes />
         </>
     );
 
