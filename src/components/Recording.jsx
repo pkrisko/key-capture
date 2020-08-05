@@ -86,7 +86,6 @@ const Recording = () => {
                 </div>
                 <div className="mt-5">
                     <strong>Recorded notes</strong>
-                    <div>{JSON.stringify(recording.events)}</div>
                 </div>
             </div>
         </>

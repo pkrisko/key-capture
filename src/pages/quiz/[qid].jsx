@@ -90,7 +90,6 @@ const Quiz = () => {
         <>
             <QuestionSection num={questionIdx + 1} note={quiz[questionIdx]}/>
             <Piano onNotePlayed={onNotePlayed} />
-            {JSON.stringify(answers)}
         </>
     );
 }
