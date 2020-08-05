@@ -35,6 +35,24 @@ body {
     margin-left: 10px;
 }
 
+.question-section {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    height: 50px;
+}
+
+.question-number {
+    border: 1px solid black;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    font-size: 1.25rem;
+    border-radius: 13px;
+    margin-right: 10px;
+}
+
 .ReactPiano__Keyboard {
     height: 350px !important;
 }

@@ -25,6 +25,7 @@
   "homepage": "https://github.com/pkrisko/key-capture#readme",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "firebase": "^7.17.1",
     "firebase-admin": "^9.0.0",
     "lodash": "^4.17.19",

@@ -25,6 +25,7 @@ const keyboardShortcuts = KeyboardShortcuts.create({
 const Piano = ({
     recording = {},
     setRecording = () => {},
+    onNotePlayed = () => {},
 }) => {
     const [noteDuration, setNoteDuration] = useState(DEFAULT_NOTE_DURATION);
     const [notesRecorded, setNotesRecorded] = useState(false);
@@ -48,6 +49,7 @@ const Piano = ({
     }
 
     const recordNotes = (midiNumbers, duration) => {
+        onNotePlayed(midiNumbers);
         if (mode !== RECORDING) {
             return;
         }
@@ -83,7 +85,6 @@ const Piano = ({
                     onPlayNoteInput={onPlayNoteInput}
                     onStopNoteInput={onStopNoteInput}
                     noteRange={noteRange}
-                    // width={window.innerWidth}
                     disabled={isLoading}
                     keyboardShortcuts={keyboardShortcuts}
                     setRecording={setRecording}
