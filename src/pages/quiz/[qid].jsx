@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Piano from '../../components/Piano';
-import { MIDI_MAP } from '../../util/constants';
+import { API_DOMAIN } from '../../util/constants';
 import { Typography } from '@material-ui/core';
-
-const quiz = ['a', 'c', 'd#', 'f', 'g'];
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const QuestionSection = ({num, note}) => (
     <div className="question-section">
@@ -20,32 +20,70 @@ const QuestionSection = ({num, note}) => (
 const Quiz = () => {
     const [questionIdx, setQuestionIdx] = useState(0);
     const [answers, setAnswers] = useState([]);
+    const [quiz, setQuiz] = useState(null);
+    const [qid, setQid] = useState(null);
+    const [score, setScore] = useState(null);
     const router = useRouter();
-    const { qid } = router.query;
 
     const onNotePlayed = midiNotes => {
-        const firstNote = midiNotes[0];
-        if (firstNote && questionIdx < quiz.length) {
-            const selection = {
-                midiNote: firstNote,
-                letterNoteSelected: MIDI_MAP[firstNote],
-                correctAnswer: quiz[questionIdx]
-            };
-            setAnswers([...answers, selection]);
+        if (midiNotes.length > 0 && questionIdx < quiz.length) {
+            setAnswers([...answers, midiNotes[0]]);
             setQuestionIdx(questionIdx + 1);
         }
     }
 
-    if (questionIdx === quiz.length) {
-        console.log("DONE");
-        console.log("SCORE");
-        console.log(answers);
-        const reducer = (acc, {correctAnswer, letterNoteSelected}) => {
-            return correctAnswer === letterNoteSelected ? acc + 1 : acc;
+    const getQuiz = async () => {
+        const response = await fetch(`${API_DOMAIN}/quiz?id=${qid}`);
+        const { questions } = await response.json();
+        setQuiz(questions);
+    }
+
+    useEffect(() => {
+        // [qid] is not populated until second render...
+        if (router && router.query) {
+            setQid(router.query.qid);
+            qid && getQuiz();
         }
-        const score = answers.reduce(reducer, 0);
-        console.log(score);
-        console.log(score / quiz.length);
+    }, [qid]);
+
+    // Loading...
+    if (!quiz) {
+        return (
+            <div className="very-center-wrapper">
+                <CircularProgress />
+            </div>
+        )
+    }
+
+    const submitQuiz = async () => {
+        const response = await fetch(`${API_DOMAIN}/results`, {
+            method: 'POST',
+            body: JSON.stringify({ answers, qid })
+        });
+        const { percentage } = await response.json();
+        setScore(percentage);
+    }
+
+    if (score) {
+        const text = score >= 80
+            ? "Nice job!"
+            : "Oof.";
+        return (
+            <div>
+                <span>{text} Your score was {score}%</span>
+                <br/>
+                <Link href="/dashboard">Dashboard</Link>
+            </div>
+        )
+    }
+
+    if (questionIdx === quiz.length) {
+        submitQuiz();
+        return (
+            <>
+                Calculating score...
+            </>
+        )
     }
 
     return (

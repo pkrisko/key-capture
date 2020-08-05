@@ -53,6 +53,12 @@ body {
     margin-right: 10px;
 }
 
+.links-to-quizzes {
+    display: flex;
+    padding: 15px;
+    flex-direction: column;
+}
+
 .ReactPiano__Keyboard {
     height: 350px !important;
 }
