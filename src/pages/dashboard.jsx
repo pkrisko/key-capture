@@ -1,80 +1,76 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Link as MaterialLink } from '@material-ui/core';
 import CenterLoader from '../components/CenterLoader';
+import Header from '../components/Header';
 import { useAuth } from '../util/auth';
 import { API_DOMAIN } from '../util/constants';
-import { useRouter } from 'next/router';
-import Header from '../components/Header';
-
 
 const Quizzes = () => {
-    const [quizzes, setQuizzes] = useState(null);
+  const [quizzes, setQuizzes] = useState(null);
 
-    const getQuizzes = async () => {
-        try {
-            const response = await fetch(`${API_DOMAIN}/quizzes`);
-            const json = await response.json();
-            setQuizzes(json);
-        } catch(err) {
-            setQuizzes(undefined);
-        }
+  const getQuizzes = async () => {
+    try {
+      const response = await fetch(`${API_DOMAIN}/quizzes`);
+      const json = await response.json();
+      setQuizzes(json);
+    } catch (err) {
+      setQuizzes(undefined);
     }
+  };
 
-    useEffect(() => {
-        getQuizzes();
-    }, []);
+  useEffect(() => {
+    getQuizzes();
+  }, []);
 
-    if (quizzes === null) {
-        return (
-            <CenterLoader />
-        );
-    }
-
-    if (quizzes === undefined) {
-        return (
-            <span>Error getting cases</span>
-        )
-    }
-
-    if (quizzes.length === 0) {
-        return (
-            <span>No quizzes available</span>
-        )
-    }
-
+  if (quizzes === null) {
     return (
-        <div className="links-to-quizzes">
-            {quizzes.map(({ id, name }) => (
-                <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
-                    <MaterialLink >
-                        {name}
-                    </MaterialLink>
-                </Link>
-            ))}
-        </div>
-    )
-}
+      <CenterLoader />
+    );
+  }
+
+  if (quizzes === undefined) {
+    return (
+      <span>Error getting quizzes</span>
+    );
+  }
+
+  if (quizzes.length === 0) {
+    return (
+      <span>No quizzes available</span>
+    );
+  }
+
+  return (
+    <div className="links-to-quizzes">
+      {quizzes.map(({ id, name }) => (
+        <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
+          <MaterialLink>
+            {name}
+          </MaterialLink>
+        </Link>
+      ))}
+    </div>
+  );
+};
 
 const Dashboard = () => {
-    const auth = useAuth();
-    const router = useRouter();
+  const auth = useAuth();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (auth.user === false) {
-            router.push('/signin');
-        }
-    }, [auth, router]);
+  useEffect(() => {
+    if (auth.user === false) {
+      router.push('/signin');
+    }
+  }, [auth, router]);
 
-    return (
-        <>
-            <Header {...auth.user} />
-            <Quizzes />
-        </>
-    );
-
-
-
-}
+  return (
+    <>
+      <Header {...auth.user} />
+      <Quizzes />
+    </>
+  );
+};
 
 export default Dashboard;
