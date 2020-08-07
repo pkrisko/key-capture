@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { CircularProgress, Link as MaterialLink } from '@material-ui/core';
+import { Link as MaterialLink } from '@material-ui/core';
+import CenterLoader from '../components/CenterLoader';
 import { useAuth } from '../util/auth';
 import { API_DOMAIN } from '../util/constants';
 import { useRouter } from 'next/router';
@@ -26,7 +27,7 @@ const Quizzes = () => {
 
     if (quizzes === null) {
         return (
-            <CircularProgress/>
+            <CenterLoader />
         );
     }
 

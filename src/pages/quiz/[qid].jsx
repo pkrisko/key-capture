@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Piano from '../../components/Piano';
-import { API_DOMAIN } from '../../util/constants';
 import { Typography } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Piano from '../../components/Piano';
+import CenterLoader from '../../components/CenterLoader';
+import { API_DOMAIN } from '../../util/constants';
 
 const QuestionSection = ({num, note}) => (
     <div className="question-section">
@@ -49,9 +49,7 @@ const Quiz = () => {
     // Loading...
     if (!quiz) {
         return (
-            <div className="very-center-wrapper">
-                <CircularProgress />
-            </div>
+            <CenterLoader />
         )
     }
 
@@ -64,10 +62,8 @@ const Quiz = () => {
         setScore(percentage);
     }
 
-    if (score) {
-        const text = score >= 80
-            ? "Nice job!"
-            : "Oof.";
+    if (score != null) {
+        const text = score >= 80 ? "Nice job!" : "Oof.";
         return (
             <div>
                 <span>{text} Your score was {score}%</span>
@@ -82,6 +78,7 @@ const Quiz = () => {
         return (
             <>
                 Calculating score...
+                <CenterLoader />
             </>
         )
     }

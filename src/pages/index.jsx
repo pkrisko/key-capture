@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CenterLoader from '../components/CenterLoader';
+import { useAuth } from "../util/auth";
 
 const Index = () => {
+    const auth = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-        router.push('/dashboard');
-    }, []);
+        if (auth.user === false) {
+            router.push('/signin');
+        } else {
+            router.push('/dashboard');
+        }
+    }, [auth, router]);
 
     return (
-        <div className="very-center-wrapper">
-            <CircularProgress />
-        </div>
+        <CenterLoader />
     );
 }
 
