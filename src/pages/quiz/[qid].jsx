@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Typography } from '@material-ui/core';
 import Piano from '../../components/Piano';
+import Card from '../../components/Card';
 import CenterLoader from '../../components/CenterLoader';
 import { API_DOMAIN } from '../../util/constants';
 
@@ -66,14 +67,22 @@ const Quiz = () => {
   };
 
   if (score != null) {
-    const expression = score >= 80 ? 'Nice job!' : 'Oof.';
-    const text = `${expression} Your score was ${score}%`;
+    const passed = score >= 80;
+    const text = passed
+      ? 'Nice job! You passed!'
+      : 'Needs some improvement. Return to the dashboard to try again';
     return (
-      <div>
-        <span>{text}</span>
-        <br />
-        <Link href="/dashboard">Dashboard</Link>
-      </div>
+      <Card>
+        <Typography variant="h6">
+          {`Your score was ${score}%`}
+        </Typography>
+        <Typography variant="h6">
+          {text}
+        </Typography>
+        <Typography variant="h6">
+          <Link href="/dashboard">Dashboard</Link>
+        </Typography>
+      </Card>
     );
   }
 

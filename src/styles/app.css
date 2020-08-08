@@ -70,6 +70,18 @@ body {
     flex-direction: column;
 }
 
+.card-wrapper {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MuiPaper-root {
+    min-width: 400px;
+    padding: 20px;
+}
+
 .ReactPiano__Keyboard {
     height: 350px !important;
 }
