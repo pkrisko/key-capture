@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Typography } from '@material-ui/core';
 import Piano from '../../components/Piano';
 import Card from '../../components/Card';
+import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
 import { API_DOMAIN } from '../../util/constants';
 
@@ -18,6 +19,25 @@ const QuestionSection = ({ num, note }) => (
     </Typography>
   </div>
 );
+
+const Complete = ({ score }) => {
+  const text = score >= 70
+    ? 'Nice job! You passed!'
+    : 'Needs some improvement. Return to the dashboard to try again';
+  return (
+    <Card>
+      <CircularProgressWithLabel variant="determinate" progress={score} />
+      <br />
+      <Typography variant="h5">
+        {text}
+      </Typography>
+      <br />
+      <Typography variant="h6">
+        <Link href="/dashboard">Dashboard</Link>
+      </Typography>
+    </Card>
+  );
+};
 
 const Quiz = () => {
   const [questionIdx, setQuestionIdx] = useState(0);
@@ -50,13 +70,6 @@ const Quiz = () => {
     }
   }, [qid, router]);
 
-  // Loading...
-  if (!quiz) {
-    return (
-      <CenterLoader />
-    );
-  }
-
   const submitQuiz = async () => {
     const response = await fetch(`${API_DOMAIN}/results`, {
       method: 'POST',
@@ -66,24 +79,13 @@ const Quiz = () => {
     setScore(percentage);
   };
 
+  // Loading...
+  if (!quiz) {
+    return <CenterLoader />;
+  }
+
   if (score != null) {
-    const passed = score >= 80;
-    const text = passed
-      ? 'Nice job! You passed!'
-      : 'Needs some improvement. Return to the dashboard to try again';
-    return (
-      <Card>
-        <Typography variant="h6">
-          {`Your score was ${score}%`}
-        </Typography>
-        <Typography variant="h6">
-          {text}
-        </Typography>
-        <Typography variant="h6">
-          <Link href="/dashboard">Dashboard</Link>
-        </Typography>
-      </Card>
-    );
+    return <Complete score={score} />;
   }
 
   if (questionIdx === quiz.length) {
