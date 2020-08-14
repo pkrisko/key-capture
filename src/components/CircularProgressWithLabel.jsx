@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-export default function CircularProgressWithLabel({ progress }) {
+const CircularProgressWithLabel = ({ progress }) => {
   const color = progress >= 70 ? 'green' : 'red';
   return (
     <Box position="relative" display="flex" justifyContent="center" color={color}>
@@ -29,4 +29,6 @@ export default function CircularProgressWithLabel({ progress }) {
       </Box>
     </Box>
   );
-}
+};
+
+export default CircularProgressWithLabel;
