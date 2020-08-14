@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Link as MaterialLink } from '@material-ui/core';
+import {
+  Link as MaterialLink,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
 import { useAuth } from '../util/auth';
@@ -10,17 +21,16 @@ import { API_DOMAIN } from '../util/constants';
 const Quizzes = () => {
   const [quizzes, setQuizzes] = useState(null);
 
-  const getQuizzes = async () => {
-    try {
-      const response = await fetch(`${API_DOMAIN}/quizzes`);
-      const json = await response.json();
-      setQuizzes(json);
-    } catch (err) {
-      setQuizzes(undefined);
-    }
-  };
-
   useEffect(() => {
+    const getQuizzes = async () => {
+      try {
+        const response = await fetch(`${API_DOMAIN}/quizzes`);
+        const json = await response.json();
+        setQuizzes(json);
+      } catch (err) {
+        setQuizzes(undefined);
+      }
+    };
     getQuizzes();
   }, []);
 
@@ -44,13 +54,40 @@ const Quizzes = () => {
 
   return (
     <div className="links-to-quizzes">
-      {quizzes.map(({ id, name }) => (
-        <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
-          <MaterialLink>
-            {name}
-          </MaterialLink>
-        </Link>
-      ))}
+      <Paper>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Quiz</TableCell>
+                <TableCell align="right">Completed?</TableCell>
+                <TableCell align="right">Score</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {quizzes.map(({ id, name }) => (
+                <TableRow>
+                  <TableCell>
+                    <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
+                      <MaterialLink>
+                        {name}
+                      </MaterialLink>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    {name === 'Quiz 2'
+                      ? <CheckBoxOutlineBlankIcon />
+                      : <AssignmentTurnedInIcon style={{ color: 'green' }} />}
+                  </TableCell>
+                  <TableCell align="right">
+                    {name === 'Quiz 2' ? 'N/A' : `${90}%`}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </div>
   );
 };

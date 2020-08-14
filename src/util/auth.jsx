@@ -11,11 +11,10 @@ const authContext = createContext();
 // Hook that enables any component to subscribe to auth state
 export const useAuth = () => useContext(authContext);
 
-const formatUser = ({ uid, photoURL, displayName, refreshToken }) => ({
+const formatUser = ({ uid, photoURL, displayName }) => ({
   uid,
   photoURL,
   displayName,
-  refreshToken,
 });
 
 // Provider hook that creates auth object and handles state
