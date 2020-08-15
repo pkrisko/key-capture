@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const devProxy = {
+const proxyConfig = {
   '/api': {
     target: process.env.FIREBASE_API_DOMAIN,
     prependPath: true,
@@ -25,11 +25,9 @@ const handle = app.getRequestHandler();
 
 app.prepare()
   .then(() => {
-    if (dev && devProxy) {
-      Object.keys(devProxy).forEach((context) => {
-        server.use(createProxyMiddleware(context, devProxy[context]));
-      });
-    }
+    Object.keys(proxyConfig).forEach((context) => {
+      server.use(createProxyMiddleware(context, proxyConfig[context]));
+    });
 
     server.all('*', (req, res) => handle(req, res));
 
