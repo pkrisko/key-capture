@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import CenterLoader from '../components/CenterLoader';
-import { useAuth } from '../util/auth';
+import { useAuthContext } from '../util/auth';
 
 const Index = () => {
-  const auth = useAuth();
+  const auth = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {

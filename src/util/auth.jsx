@@ -6,10 +6,10 @@ import React, {
 } from 'react';
 import firebase from './firebase';
 
-const authContext = createContext();
+const authContext = createContext({});
 
 // Hook that enables any component to subscribe to auth state
-export const useAuth = () => useContext(authContext);
+export const useAuthContext = () => useContext(authContext);
 
 const formatUser = ({ uid, photoURL, displayName }) => ({
   uid,
@@ -53,8 +53,6 @@ function useProvideAuth() {
   };
 }
 
-// Context Provider component that wraps your app and makes auth object
-// available to any child component that calls the useAuth() hook.
 export const ProvideAuth = ({ children }) => {
   const auth = useProvideAuth();
   return (

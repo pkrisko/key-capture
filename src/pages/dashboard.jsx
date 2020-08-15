@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
@@ -15,26 +15,15 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
-import { useAuth } from '../util/auth';
-import { API_DOMAIN } from '../util/constants';
+import { useAuthContext } from '../util/auth';
+import { useQuizContext } from '../util/quizzes';
 
 const Quizzes = () => {
-  const [quizzes, setQuizzes] = useState(null);
-
-  useEffect(() => {
-    const getQuizzes = async () => {
-      try {
-        const response = await fetch(`${API_DOMAIN}/quizzes`);
-        const json = await response.json();
-        setQuizzes(json);
-      } catch (err) {
-        setQuizzes(undefined);
-      }
-    };
-    getQuizzes();
-  }, []);
+  const quizContext = useQuizContext();
+  const { quizzes, getQuizzes } = quizContext;
 
   if (quizzes === null) {
+    getQuizzes();
     return (
       <CenterLoader />
     );
@@ -93,7 +82,7 @@ const Quizzes = () => {
 };
 
 const Dashboard = () => {
-  const auth = useAuth();
+  const auth = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Button from '@material-ui/core/Button';
-import { useAuth } from '../util/auth';
+import { useAuthContext } from '../util/auth';
 
 const SignIn = () => {
-  const auth = useAuth();
+  const auth = useAuthContext();
   const router = useRouter();
 
   const signIn = async () => {

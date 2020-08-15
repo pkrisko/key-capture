@@ -7,6 +7,7 @@ import Card from '../../components/Card';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
 import { API_DOMAIN } from '../../util/constants';
+import { useQuizContext } from '../../util/quizzes';
 
 const QuestionSection = ({ num, note }) => (
   <div className="question-section">
@@ -40,6 +41,8 @@ const Complete = ({ score }) => {
 };
 
 const Quiz = () => {
+  const quizContext = useQuizContext();
+  const { getQuiz } = quizContext;
   const [questionIdx, setQuestionIdx] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [quiz, setQuiz] = useState(null);
@@ -60,15 +63,11 @@ const Quiz = () => {
       if (!qid) {
         setQid(router.query.qid);
       } else {
-        const getQuiz = async () => {
-          const response = await fetch(`${API_DOMAIN}/quiz?id=${qid}`);
-          const { questions } = await response.json();
-          setQuiz(questions);
-        };
-        getQuiz();
+        const q = getQuiz(qid);
+        setQuiz(q);
       }
     }
-  }, [qid, router]);
+  }, [qid, router, getQuiz]);
 
   const submitQuiz = async () => {
     const response = await fetch(`${API_DOMAIN}/results`, {
