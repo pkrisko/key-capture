@@ -2,10 +2,13 @@
 const express = require('express');
 const next = require('next');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const devProxy = {
   '/api': {
-    target: 'http://127.0.0.1:5001/randpiano/us-central1',
+    target: process.env.FIREBASE_API_DOMAIN,
     prependPath: true,
     pathRewrite: {
       '^/api': '/',
