@@ -6,8 +6,9 @@ import Piano from '../../components/Piano';
 import Card from '../../components/Card';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
-import { API_DOMAIN } from '../../util/constants';
+import olRequest from '../../util/olRequest';
 import { useQuizContext } from '../../util/quizzes';
+import { useAuthContext } from '../../util/auth';
 
 const QuestionSection = ({ num, note }) => (
   <div className="question-section">
@@ -42,6 +43,7 @@ const Complete = ({ score }) => {
 
 const Quiz = () => {
   const quizContext = useQuizContext();
+  const auth = useAuthContext();
   const { getQuiz } = quizContext;
   const [questionIdx, setQuestionIdx] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -70,11 +72,7 @@ const Quiz = () => {
   }, [qid, router, getQuiz]);
 
   const submitQuiz = async () => {
-    const response = await fetch(`${API_DOMAIN}/results`, {
-      method: 'POST',
-      body: JSON.stringify({ answers, qid }),
-    });
-    const { percentage } = await response.json();
+    const { percentage } = await olRequest('results', auth.user.accessToken, 'POST', { answers, qid });
     setScore(percentage);
   };
 
