@@ -18,12 +18,12 @@ import Header from '../components/Header';
 import { useAuthContext } from '../util/auth';
 import { useQuizContext } from '../util/quizzes';
 
-const Quizzes = () => {
+const Quizzes = ({ accessToken }) => {
   const quizContext = useQuizContext();
   const { quizzes, getQuizzes } = quizContext;
 
   if (quizzes === null) {
-    getQuizzes();
+    getQuizzes(accessToken);
     return (
       <CenterLoader />
     );
@@ -94,7 +94,7 @@ const Dashboard = () => {
   return (
     <>
       <Header {...auth.user} />
-      <Quizzes />
+      {auth.user && <Quizzes accessToken={auth.user.accessToken} />}
     </>
   );
 };

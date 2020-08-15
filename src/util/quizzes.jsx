@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
 import _ from 'lodash';
-import { API_DOMAIN } from './constants';
+import olRequest from './olRequest';
 
 const quizContext = createContext();
 
@@ -10,10 +10,9 @@ export const useQuizContext = () => useContext(quizContext);
 const useProvideQuizzes = () => {
   const [quizzes, setQuizzes] = useState(null);
 
-  const getQuizzes = async () => {
+  const getQuizzes = async (accessToken) => {
     try {
-      const response = await fetch(`${API_DOMAIN}/quizzes`);
-      const json = await response.json();
+      const json = await olRequest('quizzes', accessToken);
       setQuizzes(json);
     } catch (err) {
       setQuizzes(undefined);

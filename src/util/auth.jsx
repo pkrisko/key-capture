@@ -11,20 +11,23 @@ const authContext = createContext({});
 // Hook that enables any component to subscribe to auth state
 export const useAuthContext = () => useContext(authContext);
 
-const formatUser = ({ uid, photoURL, displayName }) => ({
-  uid,
-  photoURL,
-  displayName,
+const formatUser = (rawUser = {}, accessToken = '') => ({
+  uid: rawUser.uid,
+  photoURL: rawUser.photoURL,
+  displayName: rawUser.displayName,
+  refreshToken: rawUser.refreshToken,
+  accessToken,
 });
 
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
 
-  const handleUser = (rawUser) => {
+  const handleUser = async (rawUser) => {
     if (rawUser) {
+      const accessToken = await rawUser.getIdToken();
       // Get user object in format expected by front-end
-      const formattedUser = formatUser(rawUser);
+      const formattedUser = formatUser(rawUser, accessToken);
       setUser(formattedUser);
       return formattedUser;
     }
@@ -32,7 +35,7 @@ function useProvideAuth() {
     return false;
   };
 
-  const signinWithProvider = () => {
+  const signInWithProvider = () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     return firebase
       .auth()
@@ -49,7 +52,7 @@ function useProvideAuth() {
 
   return {
     user,
-    signinWithProvider,
+    signInWithProvider,
   };
 }
 

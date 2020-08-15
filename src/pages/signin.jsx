@@ -8,7 +8,7 @@ const SignIn = () => {
   const router = useRouter();
 
   const signIn = async () => {
-    await auth.signinWithProvider();
+    await auth.signInWithProvider();
     router.push('/dashboard');
   };
 
