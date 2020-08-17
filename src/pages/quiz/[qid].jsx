@@ -7,7 +7,7 @@ import Card from '../../components/Card';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
 import olRequest from '../../util/olRequest';
-import { useQuizContext } from '../../util/quizzes';
+import { useQuizContext, ProvideQuizzes } from '../../util/quizzes';
 import { useAuthContext } from '../../util/auth';
 
 const QuestionSection = ({ num, note }) => (
@@ -35,7 +35,7 @@ const Complete = ({ score }) => {
       </Typography>
       <br />
       <Typography variant="h6">
-        <Link href="/dashboard">
+        <Link href="/dashboard" passHref replace>
           <MaterialLink>
             Dashboard
           </MaterialLink>
@@ -70,7 +70,7 @@ const Quiz = () => {
         setQid(router.query.qid);
       } else {
         const fetchQuiz = async () => {
-          const q = await getQuiz(qid);
+          const q = await getQuiz(qid, auth.user.accessToken);
           setQuiz(q);
         };
         fetchQuiz();
@@ -110,4 +110,10 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+const QuizWrapper = () => (
+  <ProvideQuizzes>
+    <Quiz />
+  </ProvideQuizzes>
+);
+
+export default QuizWrapper;

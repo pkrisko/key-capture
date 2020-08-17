@@ -11,12 +11,12 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import TurnedIn from '@material-ui/icons/AssignmentTurnedIn';
+import CheckBoxBlank from '@material-ui/icons/CheckBoxOutlineBlank';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
 import { useAuthContext } from '../util/auth';
-import { useQuizContext } from '../util/quizzes';
+import { useQuizContext, ProvideQuizzes } from '../util/quizzes';
 
 const Quizzes = ({ accessToken }) => {
   const quizContext = useQuizContext();
@@ -54,22 +54,20 @@ const Quizzes = ({ accessToken }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {quizzes.map(({ id, name }) => (
+              {quizzes.map(({ id, name, score }) => (
                 <TableRow key={id}>
                   <TableCell>
-                    <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
+                    <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name} passHref>
                       <MaterialLink>
                         {name}
                       </MaterialLink>
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    {name === 'Quiz 2'
-                      ? <CheckBoxOutlineBlankIcon />
-                      : <AssignmentTurnedInIcon style={{ color: 'green' }} />}
+                    {score === undefined ? <CheckBoxBlank /> : <TurnedIn style={{ color: 'green' }} />}
                   </TableCell>
                   <TableCell align="right">
-                    {name === 'Quiz 2' ? 'N/A' : `${90}%`}
+                    {score === undefined ? 'N/A' : score}
                   </TableCell>
                 </TableRow>
               ))}
@@ -92,10 +90,10 @@ const Dashboard = () => {
   }, [auth, router]);
 
   return (
-    <>
+    <ProvideQuizzes>
       <Header {...auth.user} />
       {auth.user && <Quizzes accessToken={auth.user.accessToken} />}
-    </>
+    </ProvideQuizzes>
   );
 };
 

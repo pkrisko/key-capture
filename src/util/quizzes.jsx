@@ -12,20 +12,20 @@ const useProvideQuizzes = () => {
 
   const getQuizzes = async (accessToken) => {
     try {
-      const json = await olRequest('quizzes', accessToken);
-      setQuizzes(json);
+      const [quizzesJson, { scores }] = await Promise.all([
+        olRequest('quizzes', accessToken),
+        olRequest('results', accessToken),
+      ]);
+      const appendScores = quizzesJson.map((quiz) => ({ ...quiz, score: scores[quiz.id] }));
+      setQuizzes(appendScores);
     } catch (err) {
       setQuizzes(undefined);
     }
   };
 
-  const getQuiz = async (qid) => {
-    if (quizzes !== null) {
-      const matches = quizzes.filter(({ id }) => id === qid);
-      return matches.length === 1 ? _.get(matches, '[0].questions') : null;
-    }
+  const getQuiz = async (qid, accessToken) => {
     try {
-      const { questions } = await olRequest(`quiz?id=${qid}`);
+      const { questions } = await olRequest(`quiz?id=${qid}`, accessToken);
       return questions;
     } catch (err) {
       // eslint-disable-next-line no-console
