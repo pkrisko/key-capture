@@ -65,8 +65,11 @@ const Quiz = () => {
       if (!qid) {
         setQid(router.query.qid);
       } else {
-        const q = getQuiz(qid);
-        setQuiz(q);
+        const fetchQuiz = async () => {
+          const q = await getQuiz(qid);
+          setQuiz(q);
+        };
+        fetchQuiz();
       }
     }
   }, [qid, router, getQuiz]);

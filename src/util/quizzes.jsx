@@ -19,9 +19,19 @@ const useProvideQuizzes = () => {
     }
   };
 
-  const getQuiz = (qid) => {
-    const matches = quizzes.filter(({ id }) => id === qid);
-    return matches.length === 1 ? _.get(matches, '[0].questions') : null;
+  const getQuiz = async (qid) => {
+    if (quizzes !== null) {
+      const matches = quizzes.filter(({ id }) => id === qid);
+      return matches.length === 1 ? _.get(matches, '[0].questions') : null;
+    }
+    try {
+      const { questions } = await olRequest(`quiz?id=${qid}`);
+      return questions;
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      return null;
+    }
   };
 
   return {
