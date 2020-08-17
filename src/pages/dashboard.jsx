@@ -55,7 +55,7 @@ const Quizzes = ({ accessToken }) => {
             </TableHead>
             <TableBody>
               {quizzes.map(({ id, name }) => (
-                <TableRow>
+                <TableRow key={id}>
                   <TableCell>
                     <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name}>
                       <MaterialLink>

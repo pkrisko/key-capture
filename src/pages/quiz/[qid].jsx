@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Typography } from '@material-ui/core';
+import { Typography, Link as MaterialLink } from '@material-ui/core';
 import Piano from '../../components/Piano';
 import Card from '../../components/Card';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
@@ -35,7 +35,11 @@ const Complete = ({ score }) => {
       </Typography>
       <br />
       <Typography variant="h6">
-        <Link href="/dashboard">Dashboard</Link>
+        <Link href="/dashboard">
+          <MaterialLink>
+            Dashboard
+          </MaterialLink>
+        </Link>
       </Typography>
     </Card>
   );
