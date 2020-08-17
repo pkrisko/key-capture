@@ -1,5 +1,4 @@
 import React, { useState, useContext, createContext } from 'react';
-import _ from 'lodash';
 import olRequest from './olRequest';
 
 const quizContext = createContext();
@@ -9,6 +8,7 @@ export const useQuizContext = () => useContext(quizContext);
 
 const useProvideQuizzes = () => {
   const [quizzes, setQuizzes] = useState(null);
+  const [score, setScore] = useState(null);
 
   const getQuizzes = async (accessToken) => {
     try {
@@ -33,11 +33,18 @@ const useProvideQuizzes = () => {
       return null;
     }
   };
+  const getScore = async (qid, answers, accessToken) => {
+    const { percentage } = await olRequest('results', accessToken, 'POST', { answers, qid });
+    setScore(percentage);
+    setQuizzes(null);
+  };
 
   return {
     quizzes,
+    score,
     getQuizzes,
     getQuiz,
+    getScore,
   };
 };
 

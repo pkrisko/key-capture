@@ -17,7 +17,7 @@ import Warning from '@material-ui/icons/WarningRounded';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
 import { useAuthContext } from '../util/auth';
-import { useQuizContext, ProvideQuizzes } from '../util/quizzes';
+import { useQuizContext } from '../util/quizzes';
 
 const Quizzes = ({ accessToken }) => {
   const quizContext = useQuizContext();
@@ -97,10 +97,10 @@ const Dashboard = () => {
   }, [auth, router]);
 
   return (
-    <ProvideQuizzes>
+    <>
       <Header {...auth.user} />
       {auth.user && <Quizzes accessToken={auth.user.accessToken} />}
-    </ProvideQuizzes>
+    </>
   );
 };
 
