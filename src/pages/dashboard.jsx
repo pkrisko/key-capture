@@ -11,8 +11,9 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
-import TurnedIn from '@material-ui/icons/AssignmentTurnedIn';
-import CheckBoxBlank from '@material-ui/icons/CheckBoxOutlineBlank';
+import TurnedIn from '@material-ui/icons/AssignmentTurnedInRounded';
+import CheckBoxBlank from '@material-ui/icons/CheckBoxOutlineBlankRounded';
+import Warning from '@material-ui/icons/WarningRounded';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
 import { useAuthContext } from '../util/auth';
@@ -54,23 +55,29 @@ const Quizzes = ({ accessToken }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {quizzes.map(({ id, name, score }) => (
-                <TableRow key={id}>
-                  <TableCell>
-                    <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name} passHref>
-                      <MaterialLink>
-                        {name}
-                      </MaterialLink>
-                    </Link>
-                  </TableCell>
-                  <TableCell align="right">
-                    {score === undefined ? <CheckBoxBlank /> : <TurnedIn style={{ color: 'green' }} />}
-                  </TableCell>
-                  <TableCell align="right">
-                    {score === undefined ? 'N/A' : score}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {quizzes.map(({ id, name, score }) => {
+                const completed = score !== undefined;
+                const CompletedIcon = completed && score >= 70
+                  ? () => <TurnedIn style={{ color: 'green' }} />
+                  : () => <Warning style={{ color: 'orange' }} />;
+                return (
+                  <TableRow key={id}>
+                    <TableCell>
+                      <Link href="/quiz/[qid]" as={`quiz/${id}`} key={name} passHref>
+                        <MaterialLink>
+                          {name}
+                        </MaterialLink>
+                      </Link>
+                    </TableCell>
+                    <TableCell align="right">
+                      {completed ? <CompletedIcon /> : <CheckBoxBlank />}
+                    </TableCell>
+                    <TableCell align="right">
+                      {completed ? score : 'N/A'}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
