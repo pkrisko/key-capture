@@ -10,11 +10,11 @@ const useProvideQuizzes = () => {
   const [quizzes, setQuizzes] = useState(null);
   const [score, setScore] = useState(null);
 
-  const getQuizzes = async (accessToken) => {
+  const getQuizzes = async (tokens) => {
     try {
       const [quizzesJson, { scores }] = await Promise.all([
-        olRequest('quizzes', accessToken),
-        olRequest('results', accessToken),
+        olRequest('quizzes', tokens),
+        olRequest('results', tokens),
       ]);
       const appendScores = quizzesJson.map((quiz) => ({ ...quiz, score: scores[quiz.id] }));
       setQuizzes(appendScores);
@@ -23,18 +23,18 @@ const useProvideQuizzes = () => {
     }
   };
 
-  const getQuiz = async (qid, accessToken) => {
+  const getQuiz = async (qid, tokens) => {
     try {
-      const { questions } = await olRequest(`quiz?id=${qid}`, accessToken);
-      return questions;
+      const { questions, type } = await olRequest(`quiz?id=${qid}`, tokens);
+      return { questions, type };
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
       return null;
     }
   };
-  const getScore = async (qid, answers, accessToken) => {
-    const { percentage } = await olRequest('results', accessToken, 'POST', { answers, qid });
+  const getScore = async (qid, answers, tokens) => {
+    const { percentage } = await olRequest('results', tokens, 'POST', { answers, qid });
     setScore(percentage);
     setQuizzes(null);
   };

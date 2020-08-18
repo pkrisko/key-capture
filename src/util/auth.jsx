@@ -15,8 +15,10 @@ const formatUser = (rawUser = {}, accessToken = '') => ({
   uid: rawUser.uid,
   photoURL: rawUser.photoURL,
   displayName: rawUser.displayName,
-  refreshToken: rawUser.refreshToken,
-  accessToken,
+  tokens: {
+    refreshToken: rawUser.refreshToken,
+    accessToken,
+  },
 });
 
 // Provider hook that creates auth object and handles state

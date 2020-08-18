@@ -19,12 +19,12 @@ import Header from '../components/Header';
 import { useAuthContext } from '../util/auth';
 import { useQuizContext } from '../util/quizzes';
 
-const Quizzes = ({ accessToken }) => {
+const Quizzes = ({ tokens }) => {
   const quizContext = useQuizContext();
   const { quizzes, getQuizzes } = quizContext;
 
   if (quizzes === null) {
-    getQuizzes(accessToken);
+    getQuizzes(tokens);
     return (
       <CenterLoader />
     );
@@ -50,12 +50,13 @@ const Quizzes = ({ accessToken }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Quiz</TableCell>
+                <TableCell align="right">Type</TableCell>
                 <TableCell align="right">Completed?</TableCell>
                 <TableCell align="right">Score</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {quizzes.map(({ id, name, score }) => {
+              {quizzes.map(({ id, name, score, type }) => {
                 const completed = score !== undefined;
                 const CompletedIcon = completed && score >= 70
                   ? () => <TurnedIn style={{ color: 'green' }} />
@@ -68,6 +69,9 @@ const Quizzes = ({ accessToken }) => {
                           {name}
                         </MaterialLink>
                       </Link>
+                    </TableCell>
+                    <TableCell align="right">
+                      {type}
                     </TableCell>
                     <TableCell align="right">
                       {completed ? <CompletedIcon /> : <CheckBoxBlank />}
@@ -99,7 +103,7 @@ const Dashboard = () => {
   return (
     <>
       <Header {...auth.user} />
-      {auth.user && <Quizzes accessToken={auth.user.accessToken} />}
+      {auth.user && <Quizzes tokens={auth.user.tokens} />}
     </>
   );
 };

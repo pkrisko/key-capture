@@ -10,7 +10,7 @@ import CenterLoader from '../../components/CenterLoader';
 import { useQuizContext } from '../../util/quizzes';
 import { useAuthContext } from '../../util/auth';
 
-const QuestionSection = ({ num, note }) => (
+const LetterQuestions = ({ num, note }) => (
   <div className="question-section">
     <div className="question-number">
       {num}
@@ -21,6 +21,10 @@ const QuestionSection = ({ num, note }) => (
     </Typography>
   </div>
 );
+
+const StaffQuestions = () => {
+  return null;
+};
 
 const Complete = ({ score }) => {
   const text = score >= 70
@@ -54,10 +58,10 @@ const Quiz = () => {
   const [quiz, setQuiz] = useState(null);
   const [qid, setQid] = useState(null);
   const router = useRouter();
-  const accessToken = _.get(auth, 'user.accessToken');
+  const tokens = _.get(auth, 'user.tokens');
 
   const onNotePlayed = (midiNotes) => {
-    if (midiNotes.length > 0 && questionIdx < quiz.length) {
+    if (midiNotes.length > 0 && questionIdx < _.size(quiz.questions)) {
       setAnswers([...answers, midiNotes[0]]);
       setQuestionIdx(questionIdx + 1);
     }
@@ -68,18 +72,19 @@ const Quiz = () => {
     if (router && router.query) {
       if (!qid) {
         setQid(router.query.qid);
-      } else {
+      }
+      if (tokens && qid) {
         const fetchQuiz = async () => {
-          const q = await getQuiz(qid, accessToken);
+          const q = await getQuiz(qid, tokens);
           setQuiz(q);
         };
         fetchQuiz();
       }
     }
-  }, [qid, router, getQuiz, accessToken]);
+  }, [qid, router, getQuiz, tokens]);
 
   const submitQuiz = async () => {
-    getScore(qid, answers, accessToken);
+    getScore(qid, answers, tokens);
   };
 
   // Loading...
@@ -91,7 +96,7 @@ const Quiz = () => {
     return <Complete score={score} />;
   }
 
-  if (questionIdx === quiz.length) {
+  if (questionIdx === _.size(quiz.questions)) {
     submitQuiz();
     return (
       <>
@@ -101,9 +106,16 @@ const Quiz = () => {
     );
   }
 
+  const { type } = quiz;
+  const questionProps = {
+    num: questionIdx + 1,
+    note: _.get(quiz, `questions[${questionIdx}]`),
+  };
+
   return (
     <>
-      <QuestionSection num={questionIdx + 1} note={quiz[questionIdx]} />
+      {type === 'letter' && <LetterQuestions {...questionProps} />}
+      {type === 'staff' && <StaffQuestions {...questionProps} /> }
       <Piano onNotePlayed={onNotePlayed} />
     </>
   );
