@@ -17,8 +17,10 @@ const useProvideQuizzes = () => {
         olRequest('results', tokens),
       ]);
       const appendScores = quizzesJson.map((quiz) => ({ ...quiz, score: scores[quiz.id] }));
+      setScore(null);
       setQuizzes(appendScores);
     } catch (err) {
+      setScore(null);
       setQuizzes(undefined);
     }
   };

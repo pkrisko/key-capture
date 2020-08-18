@@ -53,6 +53,12 @@ body {
     height: 50px;
 }
 
+.staff-questions-section {
+    height: 200px;
+    display: flex;
+    padding: 15px;
+}
+
 .question-number {
     border: 1px solid black;
     width: 25px;
@@ -75,6 +81,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.musical-staff {
+    margin: 30px 0;
+    width: 400px;
+}
+
+.note-svg {
+    position: absolute;
+    left: 243px;
+}
+
+.treble-clef-svg {
+    position: absolute;
+    width: 56px;
+    /*width: 100px;*/
+}
+
+.sharp-svg {
+    position: absolute;
+    left: 180px;
+}
+
+.ledger-line, .staff-line {
+    height: 1px;
+    background-color: black;
+}
+
+.ledger-line {
+    width: 30px;
+    margin: 15px auto;
+}
+
+.staff-line {
+    margin-top: 15px;
+    width: 100%;
 }
 
 .MuiPaper-root {

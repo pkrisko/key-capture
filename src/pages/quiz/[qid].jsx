@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Typography, Link as MaterialLink } from '@material-ui/core';
 import Piano from '../../components/Piano';
 import Card from '../../components/Card';
+import MusicalStaff from '../../components/MusicalStaff';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
 import { useQuizContext } from '../../util/quizzes';
@@ -22,9 +23,14 @@ const LetterQuestions = ({ num, note }) => (
   </div>
 );
 
-const StaffQuestions = () => {
-  return null;
-};
+const StaffQuestions = ({ num, note }) => (
+  <div className="staff-questions-section">
+    <div className="question-number">
+      {num}
+    </div>
+    <MusicalStaff note={note} />
+  </div>
+);
 
 const Complete = ({ score }) => {
   const text = score >= 70
