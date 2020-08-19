@@ -19,6 +19,10 @@ body {
     border-radius: 20px;
 }
 
+.admin-user-icon {
+    margin-right: 15px;
+}
+
 .header-app-bar {
     flex-grow: 1;
     display: flex;
@@ -129,6 +133,16 @@ body {
 
 .staff-instructions {
     margin: 5px 15px;
+}
+
+.admin-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.score-area {
+    display: flex;
+    justify-content: flex-end;
 }
 
 @media only screen and (max-width: 600px) {

@@ -82,7 +82,7 @@ const Quizzes = ({ tokens }) => {
                       {completed ? <CompletedIcon /> : <CheckBoxBlank />}
                     </TableCell>
                     <TableCell align="right">
-                      {completed ? score : 'N/A'}
+                      {completed ? `${score}%` : 'N/A'}
                     </TableCell>
                   </TableRow>
                 );
