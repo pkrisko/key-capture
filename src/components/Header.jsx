@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
-const Header = ({ displayName, photoURL, admin }) => {
+const Header = ({ displayName, photoURL, onClick }) => {
   const router = useRouter();
   return (
     <AppBar position="static" className="header-app-bar">
@@ -15,7 +15,7 @@ const Header = ({ displayName, photoURL, admin }) => {
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
-        onClick={() => (admin ? router.push('/admin') : {})}
+        onClick={onClick}
         color="inherit"
       >
         <img src={photoURL} alt="User profile" className="user-icon" />

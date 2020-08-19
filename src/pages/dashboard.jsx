@@ -112,7 +112,7 @@ const Dashboard = () => {
   }
   return (
     <>
-      <Header {...auth.user} />
+      <Header {...auth.user} onClick={() => (auth.user.admin ? router.push('/admin') : {})} />
       {auth.user && <Quizzes tokens={auth.user.tokens} />}
     </>
   );

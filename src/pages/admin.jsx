@@ -12,6 +12,7 @@ import {
 import CenterLoader from '../components/CenterLoader';
 import olRequest from '../util/olRequest';
 import { useAuthContext } from '../util/auth';
+import Header from "../components/Header";
 
 const Admin = () => {
   const { user } = useAuthContext();
@@ -38,46 +39,50 @@ const Admin = () => {
     );
   }
   return (
-    <Paper>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">Quiz 1</TableCell>
-              <TableCell align="right">Quiz 2</TableCell>
-              <TableCell align="right">Quiz 3</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map(({
-              email,
-              displayName,
-              photoURL,
-              scores,
-            }) => (
-              <TableRow key={email}>
-                <TableCell>
-                  <div className="admin-user-info">
-                    <img src={photoURL} alt="User profile" className="user-icon admin-user-icon" />
-                    {displayName}
-                  </div>
-                </TableCell>
-                <TableCell align="right">
-                  {email}
-                </TableCell>
-                {scores.map(({ score }) => (
-                  <TableCell align="right">
-                    <span>{`${score}%`}</span>
-                  </TableCell>
-                ))}
+    <>
+      <Header {...user} onClick={() => router.push('/dashboard')} />
+      <Paper>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Quiz 1</TableCell>
+                <TableCell align="right">Quiz 2</TableCell>
+                <TableCell align="right">Quiz 3</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+            </TableHead>
+            <TableBody>
+              {users.map(({
+                email,
+                displayName,
+                photoURL,
+                scores,
+              }) => (
+                <TableRow key={email}>
+                  <TableCell>
+                    <div className="admin-user-info">
+                      <img src={photoURL} alt="User profile" className="user-icon admin-user-icon" />
+                      {displayName}
+                    </div>
+                  </TableCell>
+                  <TableCell align="right">
+                    {email}
+                  </TableCell>
+                  {scores.map(({ score }) => (
+                    <TableCell align="right">
+                      {score === null && 'N/A'}
+                      {score !== null && `${score}%`}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </>
   );
 };
 
