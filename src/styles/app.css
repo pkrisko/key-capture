@@ -54,7 +54,7 @@ body {
 }
 
 .staff-questions-section {
-    height: 200px;
+    height: 130px;
     display: flex;
     padding: 15px;
 }
@@ -120,10 +120,18 @@ body {
 }
 
 .MuiPaper-root {
-    min-width: 400px;
     padding: 20px;
 }
 
 .ReactPiano__Keyboard {
     height: 350px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .MuiTableCell-root {
+        padding: 0 !important;
+    }
+    .note-svg {
+        left: 194px;
+    }
 }

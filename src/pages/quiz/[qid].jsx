@@ -24,12 +24,17 @@ const LetterQuestions = ({ num, note }) => (
 );
 
 const StaffQuestions = ({ num, note }) => (
-  <div className="staff-questions-section">
-    <div className="question-number">
-      {num}
+  <>
+    <div className="staff-questions-section">
+      <div className="question-number">
+        {num}
+      </div>
+      <MusicalStaff note={note} />
     </div>
-    <MusicalStaff note={note} />
-  </div>
+    <Typography variant="h6">
+      Click the corresponding note from the staff on the piano below.
+    </Typography>
+  </>
 );
 
 const Complete = ({ score }) => {
