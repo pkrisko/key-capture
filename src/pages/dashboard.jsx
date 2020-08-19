@@ -56,7 +56,12 @@ const Quizzes = ({ tokens }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {quizzes.map(({ id, name, score, type }) => {
+              {quizzes.map(({
+                id,
+                name,
+                score,
+                type,
+              }) => {
                 const completed = score !== undefined;
                 const CompletedIcon = completed && score >= 70
                   ? () => <TurnedIn style={{ color: 'green' }} />

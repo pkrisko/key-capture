@@ -32,7 +32,9 @@ const StaffQuestions = ({ num, note }) => (
       <MusicalStaff note={note} />
     </div>
     <Typography variant="h6">
-      Click the corresponding note from the staff on the piano below.
+      <div className="staff-instructions">
+        Click the corresponding note from the staff on the piano below.
+      </div>
     </Typography>
   </>
 );

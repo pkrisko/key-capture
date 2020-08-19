@@ -6,7 +6,7 @@ const olRequest = async (
   method = 'GET',
   body = {},
 ) => {
-  const { accessToken, refreshToken } = tokens;
+  const { accessToken } = tokens;
   const url = getUrl(path);
   const headers = { Authorization: `Bearer: ${accessToken}` };
   try {

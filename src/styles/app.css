@@ -101,7 +101,7 @@ body {
 
 .sharp-svg {
     position: absolute;
-    left: 180px;
+    left: 230px;
 }
 
 .ledger-line, .staff-line {
@@ -127,11 +127,19 @@ body {
     height: 350px !important;
 }
 
+.staff-instructions {
+    margin: 5px 15px;
+}
+
 @media only screen and (max-width: 600px) {
     .MuiTableCell-root {
         padding: 0 !important;
     }
     .note-svg {
         left: 194px;
+    }
+    .sharp-svg {
+        position: absolute;
+        left: 180px;
     }
 }
