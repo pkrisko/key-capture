@@ -105,6 +105,11 @@ const Dashboard = () => {
     }
   }, [auth, router]);
 
+  if (!auth.user) {
+    return (
+      <CenterLoader />
+    );
+  }
   return (
     <>
       <Header {...auth.user} />

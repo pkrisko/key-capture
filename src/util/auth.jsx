@@ -11,7 +11,7 @@ const authContext = createContext({});
 // Hook that enables any component to subscribe to auth state
 export const useAuthContext = () => useContext(authContext);
 
-const formatUser = (rawUser = {}, accessToken = '') => ({
+const formatUser = (rawUser = {}, accessToken = '', admin) => ({
   uid: rawUser.uid,
   photoURL: rawUser.photoURL,
   displayName: rawUser.displayName,
@@ -19,6 +19,7 @@ const formatUser = (rawUser = {}, accessToken = '') => ({
     refreshToken: rawUser.refreshToken,
     accessToken,
   },
+  admin,
 });
 
 // Provider hook that creates auth object and handles state
@@ -27,9 +28,10 @@ function useProvideAuth() {
 
   const handleUser = async (rawUser) => {
     if (rawUser) {
-      const accessToken = await rawUser.getIdToken();
-      // Get user object in format expected by front-end
-      const formattedUser = formatUser(rawUser, accessToken);
+      const accessToken = await rawUser.getIdToken(true);
+      const { claims } = await firebase.auth().currentUser.getIdTokenResult(true);
+      const { admin = false } = claims.data || {};
+      const formattedUser = formatUser(rawUser, accessToken, { admin });
       setUser(formattedUser);
       return formattedUser;
     }
