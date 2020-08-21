@@ -27,8 +27,8 @@ const useProvideQuizzes = () => {
 
   const getQuiz = async (qid, tokens) => {
     try {
-      const { questions, type } = await olRequest(`quiz?id=${qid}`, tokens);
-      return { questions, type };
+      const { questions, type, showLabels } = await olRequest(`quiz?id=${qid}`, tokens);
+      return { questions, type, showLabels };
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);

@@ -3,6 +3,7 @@ import { KeyboardShortcuts, MidiNumbers, Piano as ReactPiano } from 'react-piano
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SoundfontProvider from './SoundfontProvider';
 import { PLAYING, RECORDING } from '../util/constants';
+import noteLabel from './NoteLabel';
 
 const DURATION_UNIT = 0.4;
 const DEFAULT_NOTE_DURATION = DURATION_UNIT;
@@ -24,6 +25,7 @@ const Piano = ({
   recording = {},
   setRecording = () => {},
   onNotePlayed = () => {},
+  showLabels,
 }) => {
   const [noteDuration, setNoteDuration] = useState(DEFAULT_NOTE_DURATION);
   const [notesRecorded, setNotesRecorded] = useState(false);
@@ -77,15 +79,6 @@ const Piano = ({
     return <CircularProgress />;
   }
 
-  const noteLabel = ({
-    keyboardShortcut,
-    midiNumber,
-    isActive,
-    isAccidental,
-  }) => (
-    <span>{midiNumber}</span>
-  );
-
   return (
     <SoundfontProvider
       instrumentName="acoustic_grand_piano"
@@ -97,7 +90,7 @@ const Piano = ({
           stopNote={stopNote}
           onPlayNoteInput={onPlayNoteInput}
           onStopNoteInput={onStopNoteInput}
-          renderNoteLabel={noteLabel}
+          renderNoteLabel={showLabels ? noteLabel : () => {}}
           noteRange={noteRange}
           disabled={isLoading}
           keyboardShortcuts={keyboardShortcuts}

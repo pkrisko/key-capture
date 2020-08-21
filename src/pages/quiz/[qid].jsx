@@ -119,7 +119,7 @@ const Quiz = () => {
     );
   }
 
-  const { type } = quiz;
+  const { type, showLabels } = quiz;
   const questionProps = {
     num: questionIdx + 1,
     note: _.get(quiz, `questions[${questionIdx}]`),
@@ -129,7 +129,7 @@ const Quiz = () => {
     <>
       {type === 'letter' && <LetterQuestions {...questionProps} />}
       {type === 'staff' && <StaffQuestions {...questionProps} /> }
-      <Piano onNotePlayed={onNotePlayed} />
+      <Piano onNotePlayed={onNotePlayed} showLabels={showLabels} />
     </>
   );
 };
