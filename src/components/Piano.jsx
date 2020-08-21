@@ -7,8 +7,6 @@ import { PLAYING, RECORDING } from '../util/constants';
 const DURATION_UNIT = 0.4;
 const DEFAULT_NOTE_DURATION = DURATION_UNIT;
 
-// webkitAudioContext fallback needed to support Safari
-// const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const soundfontHostname = 'https://d1pzp51pvbm36p.cloudfront.net';
 
 const noteRange = {
@@ -79,6 +77,15 @@ const Piano = ({
     return <CircularProgress />;
   }
 
+  const noteLabel = ({
+    keyboardShortcut,
+    midiNumber,
+    isActive,
+    isAccidental,
+  }) => (
+    <span>{midiNumber}</span>
+  );
+
   return (
     <SoundfontProvider
       instrumentName="acoustic_grand_piano"
@@ -90,6 +97,7 @@ const Piano = ({
           stopNote={stopNote}
           onPlayNoteInput={onPlayNoteInput}
           onStopNoteInput={onStopNoteInput}
+          renderNoteLabel={noteLabel}
           noteRange={noteRange}
           disabled={isLoading}
           keyboardShortcuts={keyboardShortcuts}

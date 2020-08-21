@@ -47,6 +47,10 @@ function useProvideAuth() {
       .then((response) => handleUser(response.user));
   };
 
+  const signOut = async () => {
+    await firebase.auth().signOut();
+  };
+
   useEffect(() => {
     // Subscribe to user on mount
     const unsubscribe = firebase.auth().onAuthStateChanged(handleUser);
@@ -57,6 +61,7 @@ function useProvideAuth() {
   return {
     user,
     signInWithProvider,
+    signOut,
   };
 }
 
