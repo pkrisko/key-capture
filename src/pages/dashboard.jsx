@@ -16,8 +16,8 @@ import CheckBoxBlank from '@material-ui/icons/CheckBoxOutlineBlankRounded';
 import Warning from '@material-ui/icons/WarningRounded';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
-import { useAuthContext } from '../util/auth';
-import { useQuizContext } from '../util/quizzes';
+import { useAuthContext } from '../providers/auth';
+import { useQuizContext } from '../providers/quizzes';
 
 const Quizzes = ({ tokens }) => {
   const quizContext = useQuizContext();

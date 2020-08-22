@@ -1,23 +1,21 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import CenterLoader from '../components/CenterLoader';
 import { useAuthContext } from '../providers/auth';
+import Piano from '../components/Piano';
 
-const Index = () => {
+const Keyboard = () => {
   const auth = useAuthContext();
   const router = useRouter();
 
   useEffect(() => {
     if (auth.user === false) {
       router.push('/signin');
-    } else {
-      router.push('/dashboard');
     }
   }, [auth, router]);
 
   return (
-    <CenterLoader />
+    <Piano />
   );
 };
 
-export default Index;
+export default Keyboard;

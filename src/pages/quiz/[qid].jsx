@@ -8,8 +8,8 @@ import Card from '../../components/Card';
 import MusicalStaff from '../../components/MusicalStaff';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
-import { useQuizContext } from '../../util/quizzes';
-import { useAuthContext } from '../../util/auth';
+import { useQuizContext } from '../../providers/quizzes';
+import { useAuthContext } from '../../providers/auth';
 
 const LetterQuestions = ({ num, note }) => (
   <div className="question-section">

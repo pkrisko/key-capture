@@ -1,6 +1,5 @@
 export const RECORDING = 'RECORDING';
 export const PLAYING = 'PLAYING';
-export const API_DOMAIN = `${process.env.FIREBASE_API_DOMAIN}`;
 export const MIDI_MAP = {
   48: 'C',
   49: 'C#',

@@ -4,7 +4,7 @@ import React, {
   useContext,
   createContext,
 } from 'react';
-import firebase from './firebase';
+import firebase from '../util/firebase';
 
 const authContext = createContext({});
 
@@ -28,7 +28,7 @@ function useProvideAuth() {
 
   const handleUser = async (rawUser) => {
     if (rawUser) {
-      const accessToken = await rawUser.getIdToken(true);
+      const accessToken = await rawUser.getIdToken();
       const { claims } = await firebase.auth().currentUser.getIdTokenResult(true);
       const { admin = false } = claims.data || {};
       const formattedUser = formatUser(rawUser, accessToken, { admin });

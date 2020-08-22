@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import { ProvideAuth } from '../util/auth';
-import { ProvideQuizzes } from '../util/quizzes';
+import { ProvideAuth } from '../providers/auth';
+import { ProvideQuizzes } from '../providers/quizzes';
 import '../styles/app.css';
 import 'react-piano/dist/styles.css';
 

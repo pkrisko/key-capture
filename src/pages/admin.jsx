@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import CenterLoader from '../components/CenterLoader';
 import olRequest from '../util/olRequest';
-import { useAuthContext } from '../util/auth';
+import { useAuthContext } from '../providers/auth';
 import Header from "../components/Header";
 
 const Admin = () => {

@@ -1,5 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
-import olRequest from './olRequest';
+import olRequest from '../util/olRequest';
 
 const quizContext = createContext();
 
