@@ -8,11 +8,28 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Link as MaterialLink,
 } from '@material-ui/core';
 import CenterLoader from '../components/CenterLoader';
 import olRequest from '../util/olRequest';
 import { useAuthContext } from '../providers/auth';
-import Header from "../components/Header";
+import Header from '../components/Header';
+
+const headers = ['Name', 'Email', 'Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4'];
+
+const usersCsv = (userRows) => {
+  let csvContent = 'data:text/csv;charset=utf-8,';
+  csvContent += `${headers.join(',')}\n`;
+  csvContent += userRows.map((userRow) => ([
+    userRow.displayName,
+    userRow.email,
+    userRow['Quiz 1'],
+    userRow['Quiz 2'],
+    userRow['Quiz 3'],
+    userRow['Quiz 4'],
+  ])).join('\n');
+  return encodeURI(csvContent);
+};
 
 const Admin = () => {
   const { user } = useAuthContext();
@@ -46,42 +63,44 @@ const Admin = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Quiz 1</TableCell>
-                <TableCell align="right">Quiz 2</TableCell>
-                <TableCell align="right">Quiz 3</TableCell>
+                {headers.map((header, idx) => (
+                  <TableCell key={header} align={idx === 0 ? 'left' : 'right'}>
+                    {header}
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map(({
-                email,
-                displayName,
-                photoURL,
-                scores,
-              }) => (
-                <TableRow key={email}>
+              {users.map((userRecord) => (
+                <TableRow key={userRecord.email}>
                   <TableCell>
                     <div className="admin-user-info">
-                      <img src={photoURL} alt="User profile" className="user-icon admin-user-icon" />
-                      {displayName}
+                      <img src={userRecord.photoURL} alt="User profile" className="user-icon admin-user-icon" />
+                      {userRecord.displayName}
                     </div>
                   </TableCell>
                   <TableCell align="right">
-                    {email}
+                    {userRecord.email}
                   </TableCell>
-                  {scores.map(({ score }) => (
-                    <TableCell align="right">
-                      {score === null && 'N/A'}
-                      {score !== null && `${score}%`}
-                    </TableCell>
-                  ))}
+                  {headers.map((header, idx) => {
+                    if (idx <= 1) return null;
+                    const score = userRecord[header];
+                    return (
+                      <TableCell align="right">
+                        {score === null && 'N/A'}
+                        {score !== null && `${score}%`}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
+      <MaterialLink href={usersCsv(users)} download="piano-scores.csv">
+        Download
+      </MaterialLink>
     </>
   );
 };
