@@ -81,20 +81,21 @@ const Quiz = () => {
   };
 
   useEffect(() => {
-    // [qid] is not populated until second render...
-    if (router && router.query) {
-      if (!qid) {
-        setQid(router.query.qid);
-      }
-      if (tokens && qid) {
-        const fetchQuiz = async () => {
-          const q = await getQuiz(qid, tokens);
-          setQuiz(q);
-        };
-        fetchQuiz();
-      }
+    const queryQid = _.get(router, 'query.qid');
+    if (queryQid && !qid) {
+      setQid(queryQid);
     }
-  }, [qid, router, getQuiz, tokens]);
+  }, [qid, router]);
+
+  useEffect(() => {
+    if (tokens && qid) {
+      const fetchQuiz = async () => {
+        const q = await getQuiz(qid, tokens);
+        setQuiz(q);
+      };
+      fetchQuiz();
+    }
+  }, [qid, getQuiz, tokens]);
 
   const submitQuiz = async () => {
     getScore(qid, answers, tokens);
