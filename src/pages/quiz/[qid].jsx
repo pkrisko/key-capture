@@ -72,9 +72,10 @@ const Quiz = () => {
   const [qid, setQid] = useState(null);
   const router = useRouter();
   const tokens = _.get(auth, 'user.tokens');
+  const { questions, type, showLabels } = quiz || {};
 
   const onNotePlayed = (midiNotes) => {
-    if (midiNotes.length > 0 && questionIdx < _.size(quiz.questions)) {
+    if (midiNotes.length > 0 && questionIdx < _.size(questions)) {
       setAnswers([...answers, midiNotes[0]]);
       setQuestionIdx(questionIdx + 1);
     }
@@ -98,7 +99,7 @@ const Quiz = () => {
   }, [qid, getQuiz, tokens]);
 
   const submitQuiz = async () => {
-    getScore(qid, answers, tokens);
+    getScore(qid, questions, type, answers, tokens);
   };
 
   // Loading...
@@ -110,7 +111,7 @@ const Quiz = () => {
     return <Complete score={score} />;
   }
 
-  if (questionIdx === _.size(quiz.questions)) {
+  if (questionIdx === _.size(questions)) {
     submitQuiz();
     return (
       <>
@@ -120,7 +121,6 @@ const Quiz = () => {
     );
   }
 
-  const { type, showLabels } = quiz;
   const questionProps = {
     num: questionIdx + 1,
     note: _.get(quiz, `questions[${questionIdx}]`),

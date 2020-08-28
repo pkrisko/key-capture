@@ -110,6 +110,7 @@ const Dashboard = () => {
       <CenterLoader />
     );
   }
+
   return (
     <>
       <Header {...auth.user} onClick={() => (auth.user.admin ? router.push('/admin') : {})} />

@@ -35,8 +35,13 @@ const useProvideQuizzes = () => {
       return null;
     }
   };
-  const getScore = async (qid, answers, tokens) => {
-    const { percentage } = await olRequest('results', tokens, 'POST', { answers, qid });
+  const getScore = async (qid, questions, type, answers, tokens) => {
+    const { percentage } = await olRequest('results', tokens, 'POST', {
+      qid,
+      questions,
+      type,
+      answers,
+    });
     setScore(percentage);
     setQuizzes(null);
   };
