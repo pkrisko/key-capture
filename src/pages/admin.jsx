@@ -8,8 +8,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  IconButton,
+  TableFooter,
   Link as MaterialLink,
+  TablePagination,
 } from '@material-ui/core';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import LastPageIcon from '@material-ui/icons/LastPage';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import CenterLoader from '../components/CenterLoader';
 import olRequest from '../util/olRequest';
 import { useAuthContext } from '../providers/auth';
@@ -31,9 +38,49 @@ const usersCsv = (userRows) => {
   return encodeURI(csvContent);
 };
 
+const TablePaginationActions = ({
+  count,
+  page,
+  rowsPerPage,
+  onChangePage,
+}) => (
+  <>
+    <IconButton
+      onClick={(e) => onChangePage(e, 0)}
+      disabled={page === 0}
+      aria-label="first page"
+    >
+      <FirstPageIcon />
+    </IconButton>
+    <IconButton
+      onClick={(e) => onChangePage(e, page - 1)}
+      disabled={page === 0}
+      aria-label="previous page"
+    >
+      <KeyboardArrowLeft />
+    </IconButton>
+    <IconButton
+      onClick={(e) => onChangePage(e, page + 1)}
+      disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+      aria-label="next page"
+    >
+      <KeyboardArrowRight />
+    </IconButton>
+    <IconButton
+      onClick={(e) => onChangePage(e, Math.max(0, Math.ceil(count / rowsPerPage) - 1))}
+      disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+      aria-label="last page"
+    >
+      <LastPageIcon />
+    </IconButton>
+  </>
+);
+
 const Admin = () => {
   const { user } = useAuthContext();
   const [users, setUsers] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const router = useRouter();
 
   const getUsers = async () => {
@@ -71,7 +118,10 @@ const Admin = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((userRecord) => (
+              {(rowsPerPage > 0
+                ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : users
+              ).map((userRecord) => (
                 <TableRow key={userRecord.email}>
                   <TableCell>
                     <div className="admin-user-info">
@@ -95,12 +145,35 @@ const Admin = () => {
                 </TableRow>
               ))}
             </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 50, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={users.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: { 'aria-label': 'rows per page' },
+                    native: true,
+                  }}
+                  onChangePage={(e, newPage) => setPage(newPage)}
+                  onChangeRowsPerPage={(e) => {
+                    setRowsPerPage(parseInt(e.target.value, 10));
+                    setPage(0);
+                  }}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
           </Table>
         </TableContainer>
       </Paper>
-      <MaterialLink href={usersCsv(users)} download="piano-scores.csv">
-        Download
-      </MaterialLink>
+      <div style={{ margin: '10px 0 10px 15px' }}>
+        <MaterialLink href={usersCsv(users)} download="piano-scores.csv">
+          Download as CSV
+        </MaterialLink>
+      </div>
     </>
   );
 };
