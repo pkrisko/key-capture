@@ -80,7 +80,7 @@ const Admin = () => {
   const { user } = useAuthContext();
   const [users, setUsers] = useState(null);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const router = useRouter();
 
   const getUsers = async () => {
@@ -148,7 +148,7 @@ const Admin = () => {
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[10, 25, 50, { label: 'All', value: -1 }]}
+                  rowsPerPageOptions={[5, 10, 25, 50, { label: 'All', value: -1 }]}
                   colSpan={3}
                   count={users.length}
                   rowsPerPage={rowsPerPage}

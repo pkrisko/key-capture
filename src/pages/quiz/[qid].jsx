@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import _ from 'lodash';
-import { Typography, Link as MaterialLink } from '@material-ui/core';
+import { Typography, Link as MaterialLink, Paper } from '@material-ui/core';
 import Piano from '../../components/Piano';
 import Card from '../../components/Card';
 import MusicalStaff from '../../components/MusicalStaff';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
+import Header from '../../components/Header';
 import { useQuizContext } from '../../providers/quizzes';
 import { useAuthContext } from '../../providers/auth';
 
@@ -128,9 +129,14 @@ const Quiz = () => {
 
   return (
     <>
-      {type === 'letter' && <LetterQuestions {...questionProps} />}
-      {type === 'staff' && <StaffQuestions {...questionProps} /> }
-      <Piano onNotePlayed={onNotePlayed} showLabels={showLabels} />
+      <Header {...auth.user} onClick={() => {}} />
+      <Paper variant="outlined" elevation={3} style={{margin: 10}}>
+        {type === 'letter' && <LetterQuestions {...questionProps} />}
+        {type === 'staff' && <StaffQuestions {...questionProps} /> }
+      </Paper>
+      <Paper variant="outlined" elevation={3} style={{margin: 10}}>
+        <Piano onNotePlayed={onNotePlayed} showLabels={showLabels} />
+      </Paper>
     </>
   );
 };

@@ -189,8 +189,8 @@ const NoteSvg = ({ top }) => (
 
 const MusicalStaff = ({ note }) => {
   const { position, ledgerLine, sharp } = _.get(noteMap, `[${note}]`, {});
-  const noteTop = `${8 * position + 8}px`;
-  const sharpTop = `${(8 * position) + 45}px`;
+  const noteTop = `${8 * position - 35}px`;
+  const sharpTop = `${(8 * position)}px`;
   return (
     <div className="musical-staff">
       <TrebleClefSvg />
