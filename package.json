@@ -30,7 +30,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "dotenv": "^8.2.0",
     "firebase": "^7.17.1",
-    "firebase-admin": "^9.0.0",
+    "firebase-admin": "^11.4.1",
     "http-proxy-middleware": "^1.0.5",
     "lodash": "^4.17.19",
     "next": "^9.5.1",
