@@ -28,7 +28,7 @@ const olRequest = async (
     return null;
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('Error making OL request', e.getError());
+    console.error('Error making OL request', e);
     return null;
   }
 };

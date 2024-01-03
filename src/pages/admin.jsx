@@ -84,8 +84,8 @@ const Admin = () => {
   const router = useRouter();
 
   const getUsers = async () => {
-    const { allUsers } = await olRequest('users', user.tokens);
-    setUsers(allUsers);
+    const response = await olRequest('users', user.tokens);
+    setUsers(response?.allUsers);
   };
 
   if (user === null) {
