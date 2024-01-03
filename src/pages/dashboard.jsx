@@ -10,10 +10,10 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@material-ui/core';
-import TurnedIn from '@material-ui/icons/AssignmentTurnedInRounded';
-import CheckBoxBlank from '@material-ui/icons/CheckBoxOutlineBlankRounded';
-import Warning from '@material-ui/icons/WarningRounded';
+} from '@mui/material';
+import TurnedIn from '@mui/icons-material/AssignmentTurnedInRounded';
+import CheckBoxBlank from '@mui/icons-material/CheckBoxOutlineBlankRounded';
+import Warning from '@mui/icons-material/WarningRounded';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
 import { useAuthContext } from '../providers/auth';

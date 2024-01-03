@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import _ from 'lodash';
-import { Typography, Link as MaterialLink, Paper } from '@material-ui/core';
+import { Typography, Link as MaterialLink, Paper } from '@mui/material';
 import Piano from '../../components/Piano';
 import Card from '../../components/Card';
 import MusicalStaff from '../../components/MusicalStaff';

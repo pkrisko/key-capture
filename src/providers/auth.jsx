@@ -1,14 +1,9 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-} from 'react';
-import firebase from '../util/firebase';
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import { auth, googleProvider } from '../util/firebase';
+import { signInWithPopup, onAuthStateChanged, signOut, getIdToken, getIdTokenResult } from 'firebase/auth';
 
 const authContext = createContext({});
 
-// Hook that enables any component to subscribe to auth state
 export const useAuthContext = () => useContext(authContext);
 
 const formatUser = (rawUser = {}, accessToken = '', admin) => ({
@@ -22,16 +17,15 @@ const formatUser = (rawUser = {}, accessToken = '', admin) => ({
   admin,
 });
 
-// Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
 
   const handleUser = async (rawUser) => {
     if (rawUser) {
-      const accessToken = await rawUser.getIdToken();
-      const { claims } = await firebase.auth().currentUser.getIdTokenResult(true);
+      const accessToken = await getIdToken(rawUser);
+      const { claims } = await getIdTokenResult(rawUser, true);
       const { admin = false } = claims.data || {};
-      const formattedUser = formatUser(rawUser, accessToken, { admin });
+      const formattedUser = formatUser(rawUser, accessToken, admin);
       setUser(formattedUser);
       return formattedUser;
     }
@@ -40,36 +34,27 @@ function useProvideAuth() {
   };
 
   const signInWithProvider = () => {
-    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    return firebase
-      .auth()
-      .signInWithPopup(googleAuthProvider)
+    return signInWithPopup(auth, googleProvider)
       .then((response) => handleUser(response.user));
   };
 
-  const signOut = async () => {
-    await firebase.auth().signOut();
+  const signOutUser = async () => {
+    await signOut(auth);
   };
 
   useEffect(() => {
-    // Subscribe to user on mount
-    const unsubscribe = firebase.auth().onAuthStateChanged(handleUser);
-    // Unsubscribe on cleanup
+    const unsubscribe = onAuthStateChanged(auth, handleUser);
     return () => unsubscribe();
   }, []);
 
   return {
     user,
     signInWithProvider,
-    signOut,
+    signOut: signOutUser,
   };
 }
 
 export const ProvideAuth = ({ children }) => {
   const auth = useProvideAuth();
-  return (
-    <authContext.Provider value={auth}>
-      {children}
-    </authContext.Provider>
-  );
+  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };

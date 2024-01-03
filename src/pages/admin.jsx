@@ -12,11 +12,11 @@ import {
   TableFooter,
   Link as MaterialLink,
   TablePagination,
-} from '@material-ui/core';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+} from '@mui/material';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import CenterLoader from '../components/CenterLoader';
 import olRequest from '../util/olRequest';
 import { useAuthContext } from '../providers/auth';

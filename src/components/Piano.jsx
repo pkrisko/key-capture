@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { KeyboardShortcuts, MidiNumbers, Piano as ReactPiano } from 'react-piano';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import SoundfontProvider from './SoundfontProvider';
 import { PLAYING, RECORDING } from '../util/constants';
 import noteLabel from './NoteLabel';

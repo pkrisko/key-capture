@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import { useAuthContext } from '../providers/auth';
 
 const SignIn = () => {

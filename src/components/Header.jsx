@@ -1,7 +1,7 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 const Header = ({ displayName, photoURL, onClick }) => (
   <AppBar position="static" className="header-app-bar">
