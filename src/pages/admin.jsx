@@ -136,7 +136,7 @@ const Admin = () => {
                     if (idx <= 1) return null;
                     const score = userRecord[header];
                     return (
-                      <TableCell align="right">
+                      <TableCell key={`${header}-${score}`} align="right">
                         {score === null && 'N/A'}
                         {score !== null && `${score}%`}
                       </TableCell>

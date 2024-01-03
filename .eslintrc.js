@@ -7,6 +7,8 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
     'airbnb/hooks',
+    'next',
+    'next/core-web-vitals',
   ],
   parserOptions: {
     ecmaFeatures: {

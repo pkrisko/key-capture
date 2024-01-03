@@ -130,11 +130,11 @@ const Quiz = () => {
   return (
     <>
       <Header {...auth.user} onClick={() => {}} />
-      <Paper variant="outlined" elevation={3} style={{margin: 10}}>
+      <Paper variant="outlined" elevation={3} style={{ margin: 10 }}>
         {type === 'letter' && <LetterQuestions {...questionProps} />}
         {type === 'staff' && <StaffQuestions {...questionProps} /> }
       </Paper>
-      <Paper variant="outlined" elevation={3} style={{margin: 10}}>
+      <Paper variant="outlined" elevation={3} style={{ margin: 10 }}>
         <Piano onNotePlayed={onNotePlayed} showLabels={showLabels} />
       </Paper>
     </>

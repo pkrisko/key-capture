@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, {
+  useState, useEffect, useContext, createContext,
+} from 'react';
+import {
+  signInWithPopup, onAuthStateChanged, signOut, getIdToken, getIdTokenResult,
+} from 'firebase/auth';
 import { auth, googleProvider } from '../util/firebase';
-import { signInWithPopup, onAuthStateChanged, signOut, getIdToken, getIdTokenResult } from 'firebase/auth';
 
 const authContext = createContext({});
 
@@ -33,10 +37,8 @@ function useProvideAuth() {
     return false;
   };
 
-  const signInWithProvider = () => {
-    return signInWithPopup(auth, googleProvider)
-      .then((response) => handleUser(response.user));
-  };
+  const signInWithProvider = () => signInWithPopup(auth, googleProvider)
+    .then((response) => handleUser(response.user));
 
   const signOutUser = async () => {
     await signOut(auth);
@@ -55,6 +57,6 @@ function useProvideAuth() {
 }
 
 export const ProvideAuth = ({ children }) => {
-  const auth = useProvideAuth();
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
+  const useAuth = useProvideAuth();
+  return <authContext.Provider value={useAuth}>{children}</authContext.Provider>;
 };
