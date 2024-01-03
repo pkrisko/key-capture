@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +15,7 @@ const Header = ({ displayName, photoURL, onClick }) => (
       onClick={onClick}
       color="inherit"
     >
-      <Image src={photoURL} alt="User profile" className="user-icon" width={40} height={40} />
+      <img src={photoURL} alt="User profile" className="user-icon" />
     </IconButton>
   </AppBar>
 );
