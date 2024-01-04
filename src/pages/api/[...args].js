@@ -1,16 +1,23 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import httpProxy from 'http-proxy';
 
-export default createProxyMiddleware({
-  target: process.env.FIREBASE_API_DOMAIN,
-  changeOrigin: true,
-  pathRewrite: {
-    '^/api': '/',
-  },
-  prependPath: true,
-});
+const API_URL = process.env.FIREBASE_API_DOMAIN;
+const proxy = httpProxy.createProxyServer();
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
+const handler = (req, res) => new Promise((resolve, reject) => {
+  proxy.web(req, res, { target: API_URL, changeOrigin: true, prependPath: true }, (err) => {
+    if (err) {
+      console.error(err); // eslint-disable-line no-console
+      res.status(500).json({ error: 'Error occurred in proxy' });
+      return reject(err);
+    }
+    return resolve();
+  });
+});
+
+export default handler;

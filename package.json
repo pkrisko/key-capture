@@ -33,7 +33,7 @@
     "dotenv": "^8.2.0",
     "firebase": "^10.7.1",
     "firebase-admin": "^12.0.0",
-    "http-proxy-middleware": "^1.0.5",
+    "http-proxy": "^1.18.1",
     "lodash": "^4.17.19",
     "next": "^14.0.4",
     "react": "^18.2.0",

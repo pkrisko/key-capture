@@ -9,7 +9,7 @@ const App = ({ Component, pageProps }) => (
   <ProvideAuth>
     <ProvideQuizzes>
       <Head>
-        <link rel="stylesheet" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         <title>Mr. Rand&apos;s Class</title>
       </Head>
       <Component {...pageProps} />
