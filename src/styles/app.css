@@ -168,3 +168,21 @@ th {
         width: 100%;
     }
 }
+
+.entire-keyboard {
+  width: 100%;
+  position: relative;
+}
+
+.keyboard-container {
+  position: absolute;
+  top: 40.8%; /* Adjust as needed */
+  left: 22%;
+  width: 73.4%;
+  height: 51%;
+  background-color: transparent;
+}
+
+.ReactPiano__Keyboard {
+  height: 100% !important;
+}

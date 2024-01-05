@@ -12,9 +12,6 @@ export const config = {
 const handler = (req, res) => new Promise((resolve, reject) => {
   req.headers['x-forwarded-port'] = req.headers['x-forwarded-port'] || '443';
   const target = `${API_URL}/${req.query.args}`;
-  console.log('API_URL', API_URL); // eslint-disable-line no-console
-  console.log('targetPath', target); // eslint-disable-line no-console
-  console.log('Authorization Header:', req.headers.authorization); // eslint-disable-line no-console
   proxy.web(req, res, { target, changeOrigin: true, prependPath: true }, (err) => {
     if (err) {
       console.error(err); // eslint-disable-line no-console
