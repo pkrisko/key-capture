@@ -5,6 +5,12 @@ const theme = createTheme({
     primary: {
       main: '#6894c1',
     },
+    success: {
+      main: '#469F4B',
+    },
+    error: {
+      main: '#D9665F',
+    },
   },
 });
 

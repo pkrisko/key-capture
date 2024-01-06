@@ -2,9 +2,11 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 
 const CircularProgressWithLabel = ({ progress }) => {
-  const color = progress >= 70 ? 'green' : 'red';
+  const theme = useTheme();
+  const color = progress >= 70 ? theme?.palette?.success?.main : theme?.palette?.error?.main;
   return (
     <Box position="relative" display="flex" justifyContent="center" color={color}>
       <CircularProgress

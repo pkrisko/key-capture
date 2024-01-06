@@ -32,13 +32,13 @@ const Quizzes = ({ tokens }) => {
 
   if (quizzes === undefined) {
     return (
-      <span>Error getting quizzes</span>
+      <Paper className="error-box">Error getting quizzes</Paper>
     );
   }
 
   if (quizzes.length === 0) {
     return (
-      <span>No quizzes available</span>
+      <Paper className="error-box">No quizzes available</Paper>
     );
   }
 
