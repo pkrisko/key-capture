@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import _ from 'lodash';
 import { Typography, Link as MaterialLink, Paper } from '@mui/material';
-import Piano from '../../components/Piano';
+import Keyboard from '../../components/Keyboard';
 import Card from '../../components/Card';
 import MusicalStaff from '../../components/MusicalStaff';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
@@ -135,7 +135,7 @@ const Quiz = () => {
         {type === 'staff' && <StaffQuestions {...questionProps} /> }
       </Paper>
       <Paper variant="outlined" elevation={3} style={{ margin: 10 }}>
-        <Piano onNotePlayed={onNotePlayed} showLabels={showLabels} />
+        <Keyboard onNotePlayed={onNotePlayed} showLabels={showLabels} />
       </Paper>
     </>
   );
