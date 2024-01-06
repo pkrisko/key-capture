@@ -10,7 +10,7 @@ const DEFAULT_NOTE_DURATION = DURATION_UNIT;
 const soundfontHostname = 'https://d1pzp51pvbm36p.cloudfront.net';
 
 const noteRange = {
-  first: MidiNumbers.fromNote('c3'),
+  first: MidiNumbers.fromNote('g2'),
   last: MidiNumbers.fromNote('b4'),
 };
 
