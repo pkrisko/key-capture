@@ -25,7 +25,7 @@ const CircularProgressWithLabel = ({ progress }) => {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h6" component="div" color="textSecondary">
+        <Typography variant="h6" component="div" color="textSecondary" className="eurostile">
           {`${Math.round(progress)}%`}
         </Typography>
       </Box>

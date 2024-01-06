@@ -7,10 +7,28 @@
     url('../../public/fonts/source-sans-pro-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('../../public/fonts/source-sans-pro-v13-latin-regular.woff') format('woff'), /* Modern Browsers */ url('../../public/fonts/source-sans-pro-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../../public/fonts/source-sans-pro-v13-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 }
 
+@font-face {
+  font-family: 'Eurostile';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Eurostile'), url('../../public/fonts/eurostile.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'EuroStyle Normal';
+  font-style: normal;
+  font-weight: normal;
+  src: local('EuroStyle Normal'), url('../../public/fonts/EuroStyle\ Normal.woff') format('woff');
+}
+
 body {
     margin: 0;
     font-size: 1rem;
     font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.eurostile {
+    font-family: 'EuroStyle Normal', "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .error-box {

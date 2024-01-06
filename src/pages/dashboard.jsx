@@ -9,6 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
   Paper,
 } from '@mui/material';
 import TurnedIn from '@mui/icons-material/AssignmentTurnedInRounded';
@@ -45,6 +46,9 @@ const Quizzes = ({ tokens }) => {
   return (
     <div className="links-to-quizzes">
       <Paper>
+        <Typography variant="h4" className="eurostile">
+          Quiz Dashboard
+        </Typography>
         <TableContainer>
           <Table>
             <TableHead>
