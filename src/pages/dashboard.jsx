@@ -15,6 +15,7 @@ import {
 import TurnedIn from '@mui/icons-material/AssignmentTurnedInRounded';
 import CheckBoxBlank from '@mui/icons-material/CheckBoxOutlineBlankRounded';
 import Warning from '@mui/icons-material/WarningRounded';
+import { useTheme } from '@mui/material/styles';
 import CenterLoader from '../components/CenterLoader';
 import Header from '../components/Header';
 import { useAuthContext } from '../providers/auth';
@@ -22,6 +23,7 @@ import { useQuizContext } from '../providers/quizzes';
 
 const Quizzes = ({ tokens }) => {
   const quizContext = useQuizContext();
+  const theme = useTheme();
   const { quizzes, getQuizzes } = quizContext;
 
   if (quizzes === null) {
@@ -46,7 +48,7 @@ const Quizzes = ({ tokens }) => {
   return (
     <div className="links-to-quizzes">
       <Paper>
-        <Typography variant="h4" className="eurostile">
+        <Typography variant="h4" className="font-eurostile">
           Quiz Dashboard
         </Typography>
         <TableContainer>
@@ -68,7 +70,7 @@ const Quizzes = ({ tokens }) => {
               }) => {
                 const completed = score !== undefined;
                 const CompletedIcon = completed && score >= 70
-                  ? () => <TurnedIn style={{ color: 'green' }} />
+                  ? () => <TurnedIn style={{ color: theme?.palette?.success?.main }} />
                   : () => <Warning style={{ color: 'orange' }} />;
                 return (
                   <TableRow key={id}>

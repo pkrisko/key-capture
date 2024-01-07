@@ -18,7 +18,7 @@ const LetterQuestions = ({ num, note }) => (
       {num}
     </div>
     <Typography variant="h6">
-      Click this note on the piano and confirm:
+      Select this note on the piano:
       <strong>{note}</strong>
     </Typography>
   </div>
