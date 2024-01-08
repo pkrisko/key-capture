@@ -35,18 +35,18 @@ const Quizzes = ({ tokens }) => {
 
   if (quizzes === undefined) {
     return (
-      <Paper className="error-box">Error getting quizzes</Paper>
+      <Paper className="m-3">Error getting quizzes</Paper>
     );
   }
 
   if (quizzes.length === 0) {
     return (
-      <Paper className="error-box">No quizzes available</Paper>
+      <Paper className="m-3">No quizzes available</Paper>
     );
   }
 
   return (
-    <div className="links-to-quizzes">
+    <div className="flex p-3.5 flex-col">
       <Paper>
         <Typography variant="h4" className="font-eurostile">
           Quiz Dashboard

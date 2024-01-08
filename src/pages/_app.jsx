@@ -7,6 +7,7 @@ import theme from '../util/theme';
 
 // All stylesheets must be imported here in _app.jsx
 import '../styles/app.css';
+import '../styles/fonts.css';
 import '../styles/keyboard.css';
 import 'react-piano/dist/styles.css';
 

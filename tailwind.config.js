@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        sans: ['Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'sans-serif'],
         eurostile: ['Eurostile', 'sans-serif'],
         'eurostyle-normal': ['EuroStyle Normal', 'sans-serif'],
       },

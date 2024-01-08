@@ -2,177 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* source-sans-pro-regular - latin */
-@font-face {
-    font-family: 'Source Sans Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
-    url('../../public/fonts/source-sans-pro-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('../../public/fonts/source-sans-pro-v13-latin-regular.woff') format('woff'), /* Modern Browsers */ url('../../public/fonts/source-sans-pro-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../../public/fonts/source-sans-pro-v13-latin-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
-}
-
 body {
-    margin: 0;
-    font-size: 1rem;
-    font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, sans-serif;
-}
-
-.error-box {
-  margin: .75rem;
-}
-
-.user-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-}
-
-.admin-user-icon {
-    margin-right: 15px;
-}
-
-.header-app-bar {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row !important;
-    align-items: center;
-    padding-left: 15px;
-}
-
-.display-name {
-    flex-grow: 1;
-}
-
-.very-center-wrapper {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.google-icon {
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
-    margin-left: 10px;
-}
-
-.question-section {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    height: 50px;
-}
-
-.staff-questions-section {
-    display: flex;
-    height: 130px;
-    padding: 15px 0;
-    flex-direction: column;
-}
-
-.question-number {
-    border: 1px solid black;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    font-size: 1.25rem;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.links-to-quizzes {
-    display: flex;
-    padding: 15px;
-    flex-direction: column;
-}
-
-.card-wrapper {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.musical-staff {
-    position: relative;
-    margin-top: 15px;
-    width: 400px;
-}
-
-.note-svg {
-    position: absolute;
-    left: 192px;
-}
-
-.treble-clef-svg {
-    position: absolute;
-    width: 56px;
-}
-
-.sharp-svg {
-    position: absolute;
-    left: 178px;
-}
-
-.ledger-line, .staff-line {
-    height: 1px;
-    background-color: black;
-}
-
-.ledger-line {
-    width: 30px;
-    margin: 15px auto;
-}
-
-.staff-line {
-    margin-top: 15px;
-    width: 100%;
+  @apply m-0 font-sans text-base;
 }
 
 .MuiPaper-root {
-    padding: 20px;
-}
-
-.ReactPiano__Keyboard {
-    height: 350px !important;
-}
-
-.staff-instructions {
-    margin: 5px 0;
-}
-
-.admin-user-info {
-    display: flex;
-    align-items: center;
+  @apply p-5;
 }
 
 th {
-    font-weight: bold !important;
-}
-
-.score-area {
-    display: flex;
-    justify-content: flex-end;
+  font-weight: bold !important;
 }
 
 @media only screen and (max-width: 600px) {
-    .MuiTableCell-root {
-        padding: 0 !important;
-    }
-    .ReactPiano__Keyboard {
-        height: 200px !important;
-    }
-    .note-svg {
-        left: 148px;
-    }
-    .sharp-svg {
-        position: absolute;
-        left: 135px;
-    }
-    .musical-staff {
-        width: 100%;
-    }
+  .MuiTableCell-root {
+    padding: 0 !important;
+  }
 }

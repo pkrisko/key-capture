@@ -123,7 +123,7 @@ const SharpSvg = ({ top }) => (
     xmlns="http://www.w3.org/2000/svg"
     version="1.0"
     viewBox="0 0 6 19"
-    className="sharp-svg"
+    className="absolute left-[135px] lg:left-[178px]"
     width="9"
     height="28.5"
     style={{ top }}
@@ -141,7 +141,7 @@ const SharpSvg = ({ top }) => (
 );
 
 const TrebleClefSvg = () => (
-  <svg viewBox="0 0 44 75" className="treble-clef-svg">
+  <svg viewBox="0 0 44 75" className="absolute w-14">
     <defs id="defs1941" />
     <g transform="matrix(1.010278,0,0,1.010278,-24.38602,-0.986803)">
       <path
@@ -178,7 +178,7 @@ const TrebleClefSvg = () => (
 );
 
 const NoteSvg = ({ top }) => (
-  <svg viewBox="0 0 52.13 97.301" version="1.0" style={{ top }} className="note-svg" width="31" height="57.86">
+  <svg viewBox="0 0 52.13 97.301" version="1.0" style={{ top }} className="absolute left-[148px] lg:left-[192px]" width="31" height="57.86">
     <g id="layer1" transform="translate(-382.51 -658)">
       <path
         d="m408.04 658c5.88 14.34 12.3 22.76 16.39 27.42 3.23 3.68 20.94 20.04 0.53 45.61 12.12-25.04 7.76-39.88-13.92-49.03v53c0.68 21.83-21.75 23.16-27.21 17.35-5.65-5.99 7.67-25.89 24.21-19.35v-75z"
@@ -192,16 +192,16 @@ const MusicalStaff = ({ note }) => {
   const noteTop = `${8 * position - 35}px`;
   const sharpTop = `${(8 * position)}px`;
   return (
-    <div className="musical-staff">
+    <div className="relative mt-4 w-full lg:w-[400px]">
       <TrebleClefSvg />
       {sharp && <SharpSvg top={sharpTop} />}
       <NoteSvg top={noteTop} />
-      <div className="staff-line" />
-      <div className="staff-line" />
-      <div className="staff-line" />
-      <div className="staff-line" />
-      <div className="staff-line" />
-      {ledgerLine && <div className="ledger-line" />}
+      <div className="h-px bg-black mt-3.5 w-full" />
+      <div className="h-px bg-black mt-3.5 w-full" />
+      <div className="h-px bg-black mt-3.5 w-full" />
+      <div className="h-px bg-black mt-3.5 w-full" />
+      <div className="h-px bg-black mt-3.5 w-full" />
+      {ledgerLine && <div className="w-7.5 mx-auto my-3.5 h-px bg-black" />}
     </div>
   );
 };

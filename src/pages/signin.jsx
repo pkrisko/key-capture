@@ -13,10 +13,10 @@ const SignIn = () => {
   };
 
   return (
-    <div className="very-center-wrapper">
+    <div className="w-full h-screen flex items-center justify-center">
       <Button variant="contained" color="primary" onClick={signIn}>
         log in with
-        <img src="/google-favicon.png" alt="Google logo" className="google-icon" />
+        <img src="/google-favicon.png" alt="Google logo" className="h-5 w-5 rounded-full ml-2.5" />
       </Button>
     </div>
   );

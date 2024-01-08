@@ -9,32 +9,31 @@ import MusicalStaff from '../../components/MusicalStaff';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import CenterLoader from '../../components/CenterLoader';
 import Header from '../../components/Header';
+import FadeTransition from '../../components/FadeTransition';
 import { useQuizContext } from '../../providers/quizzes';
 import { useAuthContext } from '../../providers/auth';
 
 const LetterQuestions = ({ num, note }) => (
-  <div className="question-section">
-    <div className="question-number">
-      {num}
-    </div>
-    <Typography variant="h6">
-      Select this note on the piano:
-      <strong>{note}</strong>
+  <div className="flex items-center ml-2.5 h-12">
+    <Typography variant="h6" className="flex">
+      <FadeTransition triggerKey={num}>{num}</FadeTransition>
+      . Select the following note on the keyboard below:
+      <FadeTransition triggerKey={note}>
+        <strong className="ml-1">{note}</strong>
+      </FadeTransition>
     </Typography>
   </div>
 );
 
 const StaffQuestions = ({ num, note }) => (
   <>
-    <div className="staff-questions-section">
-      <div className="question-number">
-        {num}
-      </div>
+    <div className="flex h-32 p-0 py-3.5 flex-col">
       <MusicalStaff note={note} />
     </div>
     <Typography variant="h6">
-      <div className="staff-instructions">
-        Click the corresponding note from the staff on the piano below.
+      <div className="my-1 flex">
+        <FadeTransition triggerKey={num}>{num}</FadeTransition>
+        . Click the note from the (above) staff on the keyboard below.
       </div>
     </Typography>
   </>
@@ -116,7 +115,6 @@ const Quiz = () => {
     submitQuiz();
     return (
       <>
-        Calculating score...
         <CenterLoader />
       </>
     );

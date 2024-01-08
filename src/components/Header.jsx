@@ -1,13 +1,12 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 
 const Header = ({ displayName, photoURL, onClick }) => (
-  <AppBar position="static" className="header-app-bar">
-    <Typography variant="h6" className="display-name">
+  <AppBar position="static" className="flex-grow display-flex flex-row items-center pl-3.5">
+    <div className="flex-grow text-xl">
       {displayName}
-    </Typography>
+    </div>
     <IconButton
       aria-label="account of current user"
       aria-controls="menu-appbar"
@@ -15,7 +14,7 @@ const Header = ({ displayName, photoURL, onClick }) => (
       onClick={onClick}
       color="inherit"
     >
-      <img src={photoURL} alt="User profile" className="user-icon" />
+      <img src={photoURL} alt="User profile" className="w-10 h-10 rounded-3xl" />
     </IconButton>
   </AppBar>
 );

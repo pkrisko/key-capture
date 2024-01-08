@@ -124,8 +124,8 @@ const Admin = () => {
               ).map((userRecord) => (
                 <TableRow key={userRecord.email}>
                   <TableCell>
-                    <div className="admin-user-info">
-                      <img src={userRecord.photoURL} alt="User profile" className="user-icon admin-user-icon" />
+                    <div className="flex items-center">
+                      <img src={userRecord.photoURL} alt="User profile" className="w-10 h-10 rounded-3xl mr-4" />
                       {userRecord.displayName}
                     </div>
                   </TableCell>
