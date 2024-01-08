@@ -27,7 +27,7 @@ const Header = ({ displayName, photoURL, onClick }) => {
   };
 
   return (
-    <AppBar position="static" className="flex justify-between flex-row items-center pl-3.5">
+    <AppBar position="static" className="flex justify-between items-center pl-3.5" style={{ flexDirection: 'row' }}>
       <div className="flex items-center gap-1">
         {photoURL && (
           <IconButton onClick={onClick}>
