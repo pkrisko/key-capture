@@ -1,31 +1,9 @@
-.entire-keyboard {
-  width: 100%;
-  position: relative;
-}
-
-.keyboard-container {
-  position: absolute;
-  top: 40.6%;
-  left: 22.07%;
-  width: 73.4%;
-  height: 50.7%;
-  background-color: transparent;
-}
-
-@media only screen and (min-width: 768px) {
-  .keyboard-container {
-    height: 51.5%;
-    top: 41.4%;
-  }
-}
-
 .ReactPiano__Keyboard {
   height: 100% !important;
 }
 
 div.ReactPiano__Key--accidental {
-  height: 50%;
-  border-radius: 2px;
+  @apply h-1/2 rounded;
 }
 
 .ReactPiano__Key--active {
@@ -34,5 +12,5 @@ div.ReactPiano__Key--accidental {
 }
 
 div .ReactPiano__Key.ReactPiano__Key--natural {
-  border-radius: 3px;
+  @apply rounded-md;
 }

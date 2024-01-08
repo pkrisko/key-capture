@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'piano-blue': '#78C9E7',
+      },
       fontFamily: {
         sans: ['Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'sans-serif'],
         eurostile: ['Eurostile', 'sans-serif'],

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Piano from './Piano';
 
 const BaseKeybooardBackground = ({ showLabels }) => (
@@ -1050,10 +1051,10 @@ const BaseKeybooardBackground = ({ showLabels }) => (
 
 );
 
-const Keyboard = ({ onNotePlayed, showLabels = true }) => (
-  <div className="entire-keyboard">
+const Keyboard = ({ onNotePlayed, showLabels = true, className }) => (
+  <div className={classNames('w-full relative', className)}>
     <BaseKeybooardBackground showLabels={showLabels} />
-    <div className="keyboard-container">
+    <div className=" absolute w-[73.45%] left-[22.07%] top-[41.4%] h-[52.35%] bg-transparent">
       <Piano id="clickable-keys" onNotePlayed={onNotePlayed} />
     </div>
   </div>
