@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import get from 'lodash.get';
 
 const noteMap = {
   C4: {
@@ -188,20 +188,18 @@ const NoteSvg = ({ top }) => (
 );
 
 const MusicalStaff = ({ note }) => {
-  const { position, ledgerLine, sharp } = _.get(noteMap, `[${note}]`, {});
+  const { position, ledgerLine, sharp } = get(noteMap, `[${note}]`, {});
   const noteTop = `${8 * position - 35}px`;
   const sharpTop = `${(8 * position)}px`;
   return (
-    <div className="relative mt-4 w-full lg:w-[400px]">
+    <div className="relative w-full lg:w-[400px]">
       <TrebleClefSvg />
       {sharp && <SharpSvg top={sharpTop} />}
       <NoteSvg top={noteTop} />
-      <div className="h-px bg-black mt-3.5 w-full" />
-      <div className="h-px bg-black mt-3.5 w-full" />
-      <div className="h-px bg-black mt-3.5 w-full" />
-      <div className="h-px bg-black mt-3.5 w-full" />
-      <div className="h-px bg-black mt-3.5 w-full" />
-      {ledgerLine && <div className="w-7.5 mx-auto my-3.5 h-px bg-black" />}
+      {new Array(5).fill(0).map((_, idx) => (
+        <div key={`staff-line-${String.fromCharCode(65 + idx)}`} className="h-px bg-black mt-[15px] w-full" />
+      ))}
+      {ledgerLine && <div className="h-px bg-black w-8 mx-auto my-3.5" />}
     </div>
   );
 };

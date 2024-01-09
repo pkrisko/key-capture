@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import _ from 'lodash';
+import get from 'lodash.get';
+import size from 'lodash.size';
 import { Typography, Link as MaterialLink, Paper } from '@mui/material';
 import Keyboard from '../../components/Keyboard';
 import Card from '../../components/Card';
@@ -71,18 +72,18 @@ const Quiz = () => {
   const [quiz, setQuiz] = useState(null);
   const [qid, setQid] = useState(null);
   const router = useRouter();
-  const tokens = _.get(auth, 'user.tokens');
+  const tokens = get(auth, 'user.tokens');
   const { questions, type, showLabels } = quiz || {};
 
   const onNotePlayed = (midiNotes) => {
-    if (midiNotes.length > 0 && questionIdx < _.size(questions)) {
+    if (midiNotes.length > 0 && questionIdx < size(questions)) {
       setAnswers([...answers, midiNotes[0]]);
       setQuestionIdx(questionIdx + 1);
     }
   };
 
   useEffect(() => {
-    const queryQid = _.get(router, 'query.qid');
+    const queryQid = get(router, 'query.qid');
     if (queryQid && !qid) {
       setQid(queryQid);
     }
@@ -91,8 +92,25 @@ const Quiz = () => {
   useEffect(() => {
     if (tokens && qid) {
       const fetchQuiz = async () => {
-        const q = await getQuiz(qid, tokens);
-        setQuiz(q);
+        // const q = await getQuiz(qid, tokens);
+        setQuiz({
+          id: 'IQd1dcC3xZhPNjooetAd',
+          name: 'Quiz 3',
+          questions: [
+            'F5',
+            'A4',
+            'G4',
+            'C4',
+            'B4',
+            'D#5',
+            'D4',
+            'F#4',
+            'E5',
+            'F4',
+          ],
+          type: 'staff',
+          showLabels: true,
+        });
       };
       fetchQuiz();
     }
@@ -111,7 +129,7 @@ const Quiz = () => {
     return <Complete score={score} />;
   }
 
-  if (questionIdx === _.size(questions)) {
+  if (questionIdx === size(questions)) {
     submitQuiz();
     return (
       <>
@@ -122,17 +140,17 @@ const Quiz = () => {
 
   const questionProps = {
     num: questionIdx + 1,
-    note: _.get(quiz, `questions[${questionIdx}]`),
+    note: get(quiz, `questions[${questionIdx}]`),
   };
 
   return (
     <>
       <Header {...auth.user} onClick={() => {}} />
-      <Paper variant="outlined" elevation={3} style={{ margin: 10 }}>
+      <Paper variant="outlined" style={{ margin: 10 }}>
         {type === 'letter' && <LetterQuestions {...questionProps} />}
         {type === 'staff' && <StaffQuestions {...questionProps} /> }
       </Paper>
-      <Paper variant="outlined" elevation={3} style={{ margin: 10 }}>
+      <Paper variant="outlined" style={{ margin: 10 }}>
         <Keyboard onNotePlayed={onNotePlayed} showLabels={showLabels} />
       </Paper>
     </>

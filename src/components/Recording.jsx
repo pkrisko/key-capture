@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
+import uniq from 'lodash.uniq';
+import flatMap from 'lodash.flatmap';
 import { PLAYING, RECORDING } from '../util/constants';
 import Piano from './Piano';
 
@@ -39,8 +40,8 @@ const Recording = () => {
 
   const onClickPlay = () => {
     setRecordingHelp({ mode: PLAYING });
-    const startAndEndTimes = _.uniq(
-      _.flatMap(recording.events, ({ time, duration }) => [
+    const startAndEndTimes = uniq(
+      flatMap(recording.events, ({ time, duration }) => [
         time,
         time + duration,
       ]),
