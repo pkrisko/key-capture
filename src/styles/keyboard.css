@@ -4,6 +4,7 @@
 
 div.ReactPiano__Key--accidental {
   @apply h-1/2 rounded;
+  background: #19232D !important;
 }
 
 .ReactPiano__Key--active {
